@@ -1,0 +1,163 @@
+{
+  "experiment_date": "2026-04-10T10:04:36.922893",
+  "data_shape": {
+    "train": 3268,
+    "test": 818
+  },
+  "features": [
+    "volume",
+    "SMA_20",
+    "SMA_50",
+    "SMA_200",
+    "EMA_12",
+    "EMA_26",
+    "RSI",
+    "MACD",
+    "MACD_signal",
+    "MACD_diff",
+    "BB_upper",
+    "BB_middle",
+    "BB_lower",
+    "BB_width",
+    "BB_position",
+    "ATR",
+    "ATR_percent",
+    "volume_sma",
+    "volume_ratio",
+    "OBV",
+    "ROC_5",
+    "ROC_10",
+    "ROC_20",
+    "volatility_20",
+    "volatility_60",
+    "price_vs_sma20",
+    "price_vs_sma50",
+    "price_vs_sma200",
+    "PE_ratio",
+    "forward_PE",
+    "earnings_yield",
+    "earnings_growth",
+    "dividend_yield",
+    "payout_ratio",
+    "price_to_book",
+    "price_to_sales",
+    "profit_margins",
+    "return_on_equity",
+    "sentiment_polarity",
+    "sentiment_subjectivity",
+    "sentiment_articles",
+    "sentiment_lag1",
+    "sentiment_lag3",
+    "sentiment_lag5"
+  ],
+  "best_model": {
+    "model": "XGBoost_Tuned",
+    "mse": 0.0003816190615882873,
+    "rmse": 0.019535072602585517,
+    "mae": 0.014374644174803905,
+    "r2": -0.005448285820403909,
+    "direction_accuracy": 0.6063569682151589,
+    "sharpe_ratio": 24.311166763305664
+  },
+  "all_models": [
+    {
+      "model": "XGBoost_Tuned",
+      "mse": 0.0003816190615882873,
+      "rmse": 0.019535072602585517,
+      "mae": 0.014374644174803905,
+      "r2": -0.005448285820403909,
+      "direction_accuracy": 0.6063569682151589,
+      "sharpe_ratio": 24.311166763305664
+    },
+    {
+      "model": "ARIMA",
+      "mse": 0.0003945992040324435,
+      "rmse": 0.019864521238440243,
+      "mae": 0.014744471738332939,
+      "r2": -0.03964694957651771,
+      "direction_accuracy": 0.6014669926650367,
+      "sharpe_ratio": 0.015414704980107649
+    },
+    {
+      "model": "Lasso",
+      "mse": 0.0004033135602222045,
+      "rmse": 0.020082668154959005,
+      "mae": 0.015156372207851012,
+      "r2": -0.06260658491694637,
+      "direction_accuracy": 0.41075794621026895,
+      "sharpe_ratio": -1.1475547032238949
+    },
+    {
+      "model": "Prophet",
+      "mse": 0.00040899753091544017,
+      "rmse": 0.020223687371877568,
+      "mae": 0.014975923409278395,
+      "r2": -0.07758209103129454,
+      "direction_accuracy": 0.5232273838630807,
+      "sharpe_ratio": -0.19680454174666182
+    },
+    {
+      "model": "LightGBM_Tuned",
+      "mse": 0.00043082751144567916,
+      "rmse": 0.020756384835651877,
+      "mae": 0.01595774182116565,
+      "r2": -0.1350973430532214,
+      "direction_accuracy": 0.421760391198044,
+      "sharpe_ratio": -0.6658196525603014
+    },
+    {
+      "model": "Ridge",
+      "mse": 0.0004906513958201328,
+      "rmse": 0.022150652266245633,
+      "mae": 0.017090165998724895,
+      "r2": -0.29271478948021756,
+      "direction_accuracy": 0.40464547677261614,
+      "sharpe_ratio": -0.372277101605921
+    },
+    {
+      "model": "CatBoost",
+      "mse": 0.0008560568996355196,
+      "rmse": 0.02925845005524933,
+      "mae": 0.024521552226349785,
+      "r2": -1.255445361458014,
+      "direction_accuracy": 0.4119804400977995,
+      "sharpe_ratio": -1.3334486166567383
+    },
+    {
+      "model": "ExtraTrees",
+      "mse": 0.0012608768954308455,
+      "rmse": 0.0355088284153511,
+      "mae": 0.030433070122740505,
+      "r2": -2.3220209385379564,
+      "direction_accuracy": 0.4083129584352078,
+      "sharpe_ratio": -1.5768567283247614
+    },
+    {
+      "model": "RandomForest",
+      "mse": 0.0014297690731394747,
+      "rmse": 0.03781228733017185,
+      "mae": 0.03263761371788096,
+      "r2": -2.7669996297460484,
+      "direction_accuracy": 0.4339853300733496,
+      "sharpe_ratio": -1.4272360259970631
+    },
+    {
+      "model": "XGBoost",
+      "mse": 0.0014437036245471384,
+      "rmse": 0.03799610012286969,
+      "mae": 0.03237243195798952,
+      "r2": -2.8037128661556774,
+      "direction_accuracy": 0.37286063569682154,
+      "sharpe_ratio": -1.2216876745224
+    },
+    {
+      "model": "LightGBM",
+      "mse": 0.0015235789577710574,
+      "rmse": 0.03903304955766405,
+      "mae": 0.03371068895767842,
+      "r2": -3.0141596832907362,
+      "direction_accuracy": 0.39975550122249387,
+      "sharpe_ratio": -1.3512155625025208
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "model_type": "base_model",
+  "best_model_name": "catboost",
+  "training_date": "2026-04-10T10:38:37.654635",
+  "rmse": 0.02925845005524933,
+  "rmse_percent": 2.925845005524933,
+  "direction_accuracy": 0.4119804400977995,
+  "n_base_models": 4,
+  "base_models": [
+    "catboost",
+    "lightgbm",
+    "randomforest",
+    "xgboost"
+  ],
+  "ensemble_weights": null
+}

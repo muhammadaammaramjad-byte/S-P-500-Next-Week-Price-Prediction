@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>S&P 500 Predictor</title></head>
+<body>
+  <h1>Next Week Prediction</h1>
+  <div id="prediction">Loading...</div>
+  <script>
+    fetch('http://localhost:8000/predict')
+      .then(r => r.json())
+      .then(d => document.getElementById('prediction').innerHTML = 
+        `${d.prediction_percent} (${d.direction})`);
+  </script>
+</body>
+</html>
