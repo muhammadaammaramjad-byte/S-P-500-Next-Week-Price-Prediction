@@ -1,0 +1,84 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.12, pytest-9.0.2, pluggy-1.5.0 -- C:\Users\nyvra\miniconda3\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\nyvra\Downloads\sp500-predictor
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.10.0
+collecting ... collected 66 items
+
+tests/test_data/test_cleaner.py::TestDataCleaner::test_init PASSED       [  1%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_clean_sp500_data PASSED [  3%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_handle_missing_values PASSED [  4%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_remove_duplicates PASSED [  6%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_handle_outliers PASSED [  7%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_fill_missing_values_methods PASSED [  9%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_validate_ranges PASSED [ 10%]
+tests/test_data/test_collector.py::TestDataCollector::test_init PASSED   [ 12%]
+tests/test_data/test_collector.py::TestDataCollector::test_fetch_daily_data PASSED [ 13%]
+tests/test_data/test_collector.py::TestDataCollector::test_fetch_data_with_retry PASSED [ 15%]
+tests/test_data/test_collector.py::TestDataCollector::test_validate_data PASSED [ 16%]
+tests/test_data/test_collector.py::TestDataCollector::test_validate_data_missing_columns PASSED [ 18%]
+tests/test_data/test_collector.py::TestYahooFinanceCollector::test_init PASSED [ 19%]
+tests/test_data/test_collector.py::TestYahooFinanceCollector::test_fetch_intraday_data PASSED [ 21%]
+tests/test_data/test_collector.py::TestYahooFinanceCollector::test_get_ticker_info PASSED [ 22%]
+tests/test_data/test_validator.py::TestDataValidator::test_init PASSED   [ 24%]
+tests/test_data/test_validator.py::TestDataValidator::test_validate_completeness PASSED [ 25%]
+tests/test_data/test_validator.py::TestDataValidator::test_validate_accuracy PASSED [ 27%]
+tests/test_data/test_validator.py::TestDataValidator::test_validate_consistency PASSED [ 28%]
+tests/test_data/test_validator.py::TestDataValidator::test_generate_quality_report PASSED [ 30%]
+tests/test_data/test_validator.py::TestDataValidator::test_quality_score_perfect_data PASSED [ 31%]
+tests/test_data/test_validator.py::TestDataValidator::test_validate_data_types PASSED [ 33%]
+tests/test_evaluation/test_backtest.py::TestBacktestEngine::test_init PASSED [ 34%]
+tests/test_evaluation/test_backtest.py::TestBacktestEngine::test_walk_forward_split PASSED [ 36%]
+tests/test_evaluation/test_backtest.py::TestBacktestEngine::test_expanding_window_split PASSED [ 37%]
+tests/test_evaluation/test_backtest.py::TestBacktestEngine::test_calculate_returns PASSED [ 39%]
+tests/test_evaluation/test_backtest.py::TestBacktestEngine::test_calculate_sharpe_ratio PASSED [ 40%]
+tests/test_evaluation/test_metrics.py::TestMetricsCalculator::test_calculate_rmse PASSED [ 42%]
+tests/test_evaluation/test_metrics.py::TestMetricsCalculator::test_calculate_mae PASSED [ 43%]
+tests/test_evaluation/test_metrics.py::TestMetricsCalculator::test_calculate_r2 PASSED [ 45%]
+tests/test_evaluation/test_metrics.py::TestMetricsCalculator::test_direction_accuracy PASSED [ 46%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_init PASSED [ 48%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_moving_averages PASSED [ 50%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_rsi PASSED [ 51%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_macd PASSED [ 53%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_bollinger_bands PASSED [ 54%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_volatility PASSED [ 56%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_create_all_features PASSED [ 57%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_init PASSED [ 59%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_correlation_selection PASSED [ 60%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_mutual_info_selection PASSED [ 62%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_rfe_selection PASSED [ 63%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_ensemble_selection PASSED [ 65%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_rsi PASSED [ 66%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_macd PASSED [ 68%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_bollinger_bands PASSED [ 69%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_atr PASSED [ 71%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_obv PASSED [ 72%]
+tests/test_integration/test_end_to_end.py::TestEndToEnd::test_data_to_prediction_flow PASSED [ 74%]
+tests/test_integration/test_end_to_end.py::TestEndToEnd::test_api_prediction_flow PASSED [ 75%]
+tests/test_integration/test_pipeline.py::TestPipelineIntegration::test_training_pipeline PASSED [ 77%]
+tests/test_integration/test_pipeline.py::TestPipelineIntegration::test_prediction_pipeline PASSED [ 78%]
+tests/test_integration/test_pipeline.py::TestPipelineIntegration::test_end_to_end_flow PASSED [ 80%]
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_stacking_ensemble PASSED [ 81%]
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_voting_ensemble PASSED [ 83%]
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_optimize_weights PASSED [ 84%]
+tests/test_models/test_linear.py::TestLinearModels::test_ridge_init PASSED [ 86%]
+tests/test_models/test_linear.py::TestLinearModels::test_lasso_init PASSED [ 87%]
+tests/test_models/test_linear.py::TestLinearModels::test_train_ridge PASSED [ 89%]
+tests/test_models/test_linear.py::TestLinearModels::test_train_lasso PASSED [ 90%]
+tests/test_models/test_linear.py::TestLinearModels::test_predict PASSED  [ 92%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_init PASSED    [ 93%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_train PASSED   [ 95%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_predict PASSED [ 96%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_feature_importance PASSED [ 98%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_hyperparameter_tuning PASSED [100%]
+
+============================== warnings summary ===============================
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_voting_ensemble
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_optimize_weights
+  C:\Users\nyvra\miniconda3\Lib\site-packages\sklearn\linear_model\_ridge.py:228: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.699325543423057e-20.
+    return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 66 passed, 2 warnings in 11.13s =======================

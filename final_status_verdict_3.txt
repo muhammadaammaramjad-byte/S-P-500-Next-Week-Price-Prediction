@@ -1,0 +1,45 @@
+ration::test_prediction_pipeline PASSED [ 78%]
+tests/test_integration/test_pipeline.py::TestPipelineIntegration::test_end_to_end_flow PASSED [ 80%]
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_stacking_ensemble PASSED [ 81%]
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_voting_ensemble PASSED [ 83%]
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_optimize_weights PASSED [ 84%]
+tests/test_models/test_linear.py::TestLinearModels::test_ridge_init PASSED [ 86%]
+tests/test_models/test_linear.py::TestLinearModels::test_lasso_init PASSED [ 87%]
+tests/test_models/test_linear.py::TestLinearModels::test_train_ridge PASSED [ 89%]
+tests/test_models/test_linear.py::TestLinearModels::test_train_lasso PASSED [ 90%]
+tests/test_models/test_linear.py::TestLinearModels::test_predict PASSED  [ 92%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_init PASSED    [ 93%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_train PASSED   [ 95%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_predict PASSED [ 96%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_feature_importance PASSED [ 98%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_hyperparameter_tuning PASSED [100%]
+
+================================== FAILURES ===================================
+_______________ TestPipelineIntegration.test_training_pipeline ________________
+
+self = <test_pipeline.TestPipelineIntegration object at 0x0000026F62B54E10>
+sample_X_y = (array([[102.48357077, 104.58163837, 100.04126378, ...,          nan,
+         50.01205475,          nan],
+       [ 99..., -5.80456930e-02,
+        5.23554765e-03,  8.89459769e-02, -9.52925988e-02, -2.89572178e-02,
+       -1.00530675e-01]))
+
+    def test_training_pipeline(self, sample_X_y):
+        """Test training pipeline"""
+        X, y = sample_X_y
+    
+>       pipeline = TrainingPipeline(models_dir=self.models_dir)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: TrainingPipeline.__init__() got an unexpected keyword argument 'models_dir'
+
+tests\test_integration\test_pipeline.py:30: TypeError
+============================== warnings summary ===============================
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_voting_ensemble
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_optimize_weights
+  C:\Users\nyvra\miniconda3\Lib\site-packages\sklearn\linear_model\_ridge.py:228: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.699325543423057e-20.
+    return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_integration/test_pipeline.py::TestPipelineIntegration::test_training_pipeline
+================== 1 failed, 65 passed, 2 warnings in 13.66s ==================

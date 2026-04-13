@@ -1,0 +1,32 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.12, pytest-9.0.2, pluggy-1.5.0 -- C:\Users\nyvra\miniconda3\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\nyvra\Downloads\sp500-predictor
+configfile: pyproject.toml
+plugins: anyio-4.10.0
+collecting ... collected 22 items
+
+tests/test_data/test_cleaner.py::TestDataCleaner::test_init PASSED       [  4%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_clean_sp500_data PASSED [  9%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_handle_missing_values PASSED [ 13%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_remove_duplicates PASSED [ 18%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_handle_outliers PASSED [ 22%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_fill_missing_values_methods PASSED [ 27%]
+tests/test_data/test_cleaner.py::TestDataCleaner::test_validate_ranges PASSED [ 31%]
+tests/test_data/test_collector.py::TestDataCollector::test_init PASSED   [ 36%]
+tests/test_data/test_collector.py::TestDataCollector::test_fetch_daily_data PASSED [ 40%]
+tests/test_data/test_collector.py::TestDataCollector::test_fetch_data_with_retry PASSED [ 45%]
+tests/test_data/test_collector.py::TestDataCollector::test_validate_data PASSED [ 50%]
+tests/test_data/test_collector.py::TestDataCollector::test_validate_data_missing_columns PASSED [ 54%]
+tests/test_data/test_collector.py::TestYahooFinanceCollector::test_init PASSED [ 59%]
+tests/test_data/test_collector.py::TestYahooFinanceCollector::test_fetch_intraday_data PASSED [ 63%]
+tests/test_data/test_collector.py::TestYahooFinanceCollector::test_get_ticker_info PASSED [ 68%]
+tests/test_data/test_validator.py::TestDataValidator::test_init PASSED   [ 72%]
+tests/test_data/test_validator.py::TestDataValidator::test_validate_completeness PASSED [ 77%]
+tests/test_data/test_validator.py::TestDataValidator::test_validate_accuracy PASSED [ 81%]
+tests/test_data/test_validator.py::TestDataValidator::test_validate_consistency PASSED [ 86%]
+tests/test_data/test_validator.py::TestDataValidator::test_generate_quality_report PASSED [ 90%]
+tests/test_data/test_validator.py::TestDataValidator::test_quality_score_perfect_data PASSED [ 95%]
+tests/test_data/test_validator.py::TestDataValidator::test_validate_data_types PASSED [100%]
+
+============================= 22 passed in 6.13s ==============================

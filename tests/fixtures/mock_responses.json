@@ -1,0 +1,39 @@
+{
+  "health_check": {
+    "status": "healthy",
+    "model_loaded": true,
+    "model_exists": true,
+    "model_version": "2.0.0",
+    "timestamp": "2024-01-15T10:30:00"
+  },
+  "prediction": {
+    "prediction": 0.00322,
+    "prediction_percent": "0.3224%",
+    "direction": "BULLISH",
+    "confidence": "Low",
+    "recommendation": "HOLD",
+    "current_price": 5245.67,
+    "timestamp": "2024-01-15T10:30:00",
+    "model_version": "2.0.0"
+  },
+  "yfinance_response": {
+    "Open": 4766.23,
+    "High": 4796.32,
+    "Low": 4752.34,
+    "Close": 4789.45,
+    "Volume": 2876500000
+  },
+  "fred_response": {
+    "observations": [
+      {"date": "2024-01-01", "value": "5.33"},
+      {"date": "2024-02-01", "value": "5.25"},
+      {"date": "2024-03-01", "value": "5.18"}
+    ]
+  },
+  "alpha_vantage_response": {
+    "Technical Analysis: RSI": {
+      "2024-01-15": {"RSI": "52.34"},
+      "2024-01-14": {"RSI": "48.76"}
+    }
+  }
+}

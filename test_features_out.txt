@@ -1,0 +1,129 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.12, pytest-9.0.2, pluggy-1.5.0 -- C:\Users\nyvra\miniconda3\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\nyvra\Downloads\sp500-predictor
+configfile: pyproject.toml
+plugins: anyio-4.10.0
+collecting ... collected 22 items
+
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_init PASSED [  4%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_moving_averages PASSED [  9%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_rsi PASSED [ 13%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_macd PASSED [ 18%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_bollinger_bands PASSED [ 22%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_add_volatility PASSED [ 27%]
+tests/test_features/test_engineering.py::TestFeatureEngineer::test_create_all_features PASSED [ 31%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_init PASSED [ 36%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_correlation_selection FAILED [ 40%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_mutual_info_selection FAILED [ 45%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_rfe_selection FAILED [ 50%]
+tests/test_features/test_selection.py::TestFeatureSelector::test_ensemble_selection FAILED [ 54%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_rsi PASSED [ 59%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_macd PASSED [ 63%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_bollinger_bands PASSED [ 68%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_atr PASSED [ 72%]
+tests/test_features/test_technical.py::TestTechnicalIndicators::test_calculate_obv PASSED [ 77%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_init PASSED    [ 81%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_train PASSED   [ 86%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_predict PASSED [ 90%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_feature_importance PASSED [ 95%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_hyperparameter_tuning PASSED [100%]
+
+================================== FAILURES ===================================
+_______________ TestFeatureSelector.test_correlation_selection ________________
+
+self = <test_selection.TestFeatureSelector object at 0x00000247AD9242D0>
+sample_X_y = (array([[102.48357077, 104.58163837, 100.04126378, ...,          nan,
+         57.25095787,          nan],
+       [ 99..., -5.80456930e-02,
+        5.23554765e-03,  8.89459769e-02, -9.52925988e-02, -2.89572178e-02,
+       -1.00530675e-01]))
+
+    def test_correlation_selection(self, sample_X_y):
+    
+        """Test correlation-based feature selection"""
+    
+        X, y = sample_X_y
+    
+    
+    
+        selector = FeatureSelector()
+    
+>       selected, scores = selector.correlation_selection(X, y, threshold=0.1)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'FeatureSelector' object has no attribute 'correlation_selection'
+
+tests\test_features\test_selection.py:47: AttributeError
+_______________ TestFeatureSelector.test_mutual_info_selection ________________
+
+self = <test_selection.TestFeatureSelector object at 0x00000247AD74A3F0>
+sample_X_y = (array([[102.48357077, 104.58163837, 100.04126378, ...,          nan,
+         57.25095787,          nan],
+       [ 99..., -5.80456930e-02,
+        5.23554765e-03,  8.89459769e-02, -9.52925988e-02, -2.89572178e-02,
+       -1.00530675e-01]))
+
+    def test_mutual_info_selection(self, sample_X_y):
+    
+        """Test mutual information selection"""
+    
+        X, y = sample_X_y
+    
+    
+    
+        selector = FeatureSelector()
+    
+>       selected, scores = selector.mutual_info_selection(X, y, k=10)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'FeatureSelector' object has no attribute 'mutual_info_selection'
+
+tests\test_features\test_selection.py:67: AttributeError
+___________________ TestFeatureSelector.test_rfe_selection ____________________
+
+self = <test_selection.TestFeatureSelector object at 0x00000247AD865CD0>
+
+    def test_rfe_selection(self):
+    
+        """Test RFE feature selection"""
+    
+        X, y = make_regression(n_samples=200, n_features=20, n_informative=5, random_state=42)
+    
+    
+    
+        selector = FeatureSelector()
+    
+>       selected, rankings = selector.rfe_selection(X, y, n_features=5)
+                             ^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'FeatureSelector' object has no attribute 'rfe_selection'
+
+tests\test_features\test_selection.py:87: AttributeError
+_________________ TestFeatureSelector.test_ensemble_selection _________________
+
+self = <test_selection.TestFeatureSelector object at 0x00000247AD8C7650>
+sample_X_y = (array([[102.48357077, 104.58163837, 100.04126378, ...,          nan,
+         57.25095787,          nan],
+       [ 99..., -5.80456930e-02,
+        5.23554765e-03,  8.89459769e-02, -9.52925988e-02, -2.89572178e-02,
+       -1.00530675e-01]))
+
+    def test_ensemble_selection(self, sample_X_y):
+    
+        """Test ensemble feature selection"""
+    
+        X, y = sample_X_y
+    
+    
+    
+        selector = FeatureSelector()
+    
+>       selected, importance = selector.ensemble_selection(X, y)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'FeatureSelector' object has no attribute 'ensemble_selection'
+
+tests\test_features\test_selection.py:107: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/test_features/test_selection.py::TestFeatureSelector::test_correlation_selection - AttributeError: 'FeatureSelector' object has no attribute 'correlation_selection'
+FAILED tests/test_features/test_selection.py::TestFeatureSelector::test_mutual_info_selection - AttributeError: 'FeatureSelector' object has no attribute 'mutual_info_selection'
+FAILED tests/test_features/test_selection.py::TestFeatureSelector::test_rfe_selection - AttributeError: 'FeatureSelector' object has no attribute 'rfe_selection'
+FAILED tests/test_features/test_selection.py::TestFeatureSelector::test_ensemble_selection - AttributeError: 'FeatureSelector' object has no attribute 'ensemble_selection'
+======================== 4 failed, 18 passed in 6.13s =========================

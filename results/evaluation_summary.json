@@ -1,14 +1,14 @@
 {
-  "experiment_date": "2026-04-10T10:21:57.087884",
+  "experiment_date": "2026-04-11T19:31:34.936596",
   "best_model": "lasso",
-  "best_sharpe": -3.78317591539895,
-  "best_sortino": -3.2247279715660477,
+  "best_sharpe": -3.78315964289501,
+  "best_sortino": -3.224718317745466,
   "best_win_rate": 0.6637298091042585,
   "total_models_tested": 7,
-  "backtest_folds": 0,
+  "backtest_folds": 5,
   "top_3_models": [
     "lasso",
     "ridge",
-    "xgboost"
+    "lightgbm"
   ]
 }

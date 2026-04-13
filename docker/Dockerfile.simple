@@ -1,0 +1,27 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements (without version constraints)
+COPY requirements.txt .
+RUN pip install --no-cache-dir fastapi uvicorn catboost pandas numpy yfinance scikit-learn joblib
+
+# Copy application
+COPY api.py .
+COPY src/ ./src/
+COPY models/ ./models/
+
+# Create directories
+RUN mkdir -p logs cache
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]

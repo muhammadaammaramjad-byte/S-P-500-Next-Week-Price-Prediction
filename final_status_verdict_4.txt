@@ -1,0 +1,25 @@
+ng_pipeline PASSED [ 77%]
+tests/test_integration/test_pipeline.py::TestPipelineIntegration::test_prediction_pipeline PASSED [ 78%]
+tests/test_integration/test_pipeline.py::TestPipelineIntegration::test_end_to_end_flow PASSED [ 80%]
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_stacking_ensemble PASSED [ 81%]
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_voting_ensemble PASSED [ 83%]
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_optimize_weights PASSED [ 84%]
+tests/test_models/test_linear.py::TestLinearModels::test_ridge_init PASSED [ 86%]
+tests/test_models/test_linear.py::TestLinearModels::test_lasso_init PASSED [ 87%]
+tests/test_models/test_linear.py::TestLinearModels::test_train_ridge PASSED [ 89%]
+tests/test_models/test_linear.py::TestLinearModels::test_train_lasso PASSED [ 90%]
+tests/test_models/test_linear.py::TestLinearModels::test_predict PASSED  [ 92%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_init PASSED    [ 93%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_train PASSED   [ 95%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_predict PASSED [ 96%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_feature_importance PASSED [ 98%]
+tests/test_models/test_xgboost.py::TestXGBoostModel::test_hyperparameter_tuning PASSED [100%]
+
+============================== warnings summary ===============================
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_voting_ensemble
+tests/test_models/test_ensemble.py::TestEnsembleModels::test_optimize_weights
+  C:\Users\nyvra\miniconda3\Lib\site-packages\sklearn\linear_model\_ridge.py:228: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.699325543423057e-20.
+    return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 66 passed, 2 warnings in 11.13s =======================

@@ -1,0 +1,18 @@
+# models/model_card.yaml
+model_name: "S&P 500 Predictor"
+model_version: "2.0.0"
+model_type: "CatBoost Regressor"
+training_date: "2026-04-11"
+training_data:
+  start_date: "2010-01-01"
+  end_date: "2026-04-09"
+  samples: 4086
+  features: 45
+performance:
+  rmse: 0.0265
+  mae: 0.0197
+  r2: -0.1351
+  direction_accuracy: 0.412
+intended_use: "Next-week S&P 500 return prediction"
+limitations: "Not suitable for high-frequency trading"
+ethics: "For educational and research purposes only"

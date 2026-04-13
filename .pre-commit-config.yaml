@@ -1,0 +1,122 @@
+# .pre-commit-config.yaml
+# Pre-commit hooks for code quality and formatting
+
+repos:
+  # Ruff - Fast Python linter and formatter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.0
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        files: ^(src|scripts|tests)/.*\.py$
+  
+  # Black - Code formatter
+  - repo: https://github.com/psf/black
+    rev: 23.10.0
+    hooks:
+      - id: black
+        language_version: python3
+        files: ^(src|scripts|tests)/.*\.py$
+        args: [--line-length=100]
+  
+  # MyPy - Static type checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.6.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-all, types-requests, types-python-dateutil]
+        files: ^(src|scripts)/.*\.py$
+        args: [--ignore-missing-imports, --allow-untyped-decorators]
+  
+  # Check for large files
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=5000]
+      
+      - id: check-json
+        files: \.json$
+      
+      - id: check-yaml
+        files: \.ya?ml$
+      
+      - id: check-toml
+        files: \.toml$
+      
+      - id: end-of-file-fixer
+        files: \.(py|md|yml|yaml|json|txt)$
+      
+      - id: trailing-whitespace
+        files: \.(py|md|yml|yaml|json|txt)$
+      
+      - id: check-case-conflict
+      
+      - id: check-merge-conflict
+      
+      - id: debug-statements
+        language_version: python3
+  
+  # Bandit - Security linter
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: [-c, pyproject.toml, -r, src]
+        additional_dependencies: ["bandit[toml]"]
+        files: ^src/.*\.py$
+
+  # isort - Import sorting
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [--profile=black, --filter-files]
+        files: ^(src|scripts|tests)/.*\.py$
+
+  # Flake8 - Style guide enforcement
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        args: [--max-line-length=100, --extend-ignore=E203,W503]
+        files: ^(src|scripts|tests)/.*\.py$
+        additional_dependencies: [flake8-docstrings, flake8-bugbear]
+
+  # Detect secrets
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: [--baseline, .secrets.baseline]
+        files: ^.*\.(py|yaml|yml|json|env|txt)$
+
+  # Jupyter notebook cleanup
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.7.0
+    hooks:
+      - id: nbqa-black
+        args: [--line-length=100]
+        files: \.ipynb$
+      
+      - id: nbqa-ruff
+        args: [--fix]
+        files: \.ipynb$
+      
+      - id: nbqa-isort
+        args: [--profile=black]
+        files: \.ipynb$
+
+# Global configuration
+default_language_version:
+  python: python3
+
+default_stages: [pre-commit, pre-push]
+
+fail_fast: false
+
+# CI environment settings
+ci:
+  autofix_prs: true
+  autoupdate_schedule: weekly
+  autoupdate_commit_msg: 'chore: update pre-commit hooks'
