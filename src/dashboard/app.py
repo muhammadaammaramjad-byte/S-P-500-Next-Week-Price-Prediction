@@ -14,6 +14,8 @@ from src.dashboard.config import config
 from src.dashboard.utils.data_loader import DataLoader
 from src.dashboard.utils.charts import ChartBuilder
 from src.models.xgboost import XGBoostModel
+from src.dashboard.pages.subscription import render_subscription_page, render_account_page
+from src.analytics.revenue_dashboard import RevenueAnalytics
 
 # Page configuration
 st.set_page_config(
@@ -76,9 +78,12 @@ class Dashboard:
             model_type = st.selectbox("Select Model", ["XGBoost", "Ensemble", "Linear"])
             horizon = st.slider("Prediction days ahead", 1, 30, 5)
             st.markdown("---")
+            st.markdown("## 💳 Billing")
+            page = st.radio("Navigation", ["Dashboard", "Subscription", "Revenue Analytics"])
+            st.markdown("---")
             st.markdown("### ✅ System Status")
             st.markdown("- **Tests:** 66/66 ✅\n- **Coverage:** 94% 📊\n- **CI/CD:** Active 🚀")
-            return {"horizon": horizon}
+            return {"horizon": horizon, "page": page}
 
     def render_metrics(self, data):
         col1, col2, col3, col4 = st.columns(4)
@@ -91,22 +96,27 @@ class Dashboard:
     def run(self):
         self.render_header()
         controls = self.render_sidebar()
-        data = self.data_loader.load_sp500_data()
-        
-        if data is not None:
-            # Fix column case for plotting
-            data.columns = [c.lower() for c in data.columns]
-            self.render_metrics(data)
+        if controls['page'] == "Dashboard":
+            data = self.data_loader.load_sp500_data()
             
-            tab1, tab2 = st.tabs(["Price Action", "Predictions"])
-            with tab1:
-                st.plotly_chart(self.chart_builder.candlestick_chart(data), use_container_width=True)
-            with tab2:
-                st.info("🔮 Model Predictions ready based on 100% Green Test Suite")
-                # Simplified mock prediction for demo
-                import numpy as np
-                preds = [data['close'].iloc[-1] * (1 + 0.001 * i) for i in range(controls['horizon'])]
-                st.line_chart(preds)
+            if data is not None:
+                # Fix column case for plotting
+                data.columns = [c.lower() for c in data.columns]
+                self.render_metrics(data)
+                
+                tab1, tab2 = st.tabs(["Price Action", "Predictions"])
+                with tab1:
+                    st.plotly_chart(self.chart_builder.candlestick_chart(data), use_container_width=True)
+                with tab2:
+                    st.info("🔮 Model Predictions ready based on 100% Green Test Suite")
+                    # Simplified mock prediction for demo
+                    import numpy as np
+                    preds = [data['close'].iloc[-1] * (1 + 0.001 * i) for i in range(controls['horizon'])]
+                    st.line_chart(preds)
+        elif controls['page'] == "Subscription":
+            render_subscription_page()
+        elif controls['page'] == "Revenue Analytics":
+            RevenueAnalytics().render_dashboard()
 
 if __name__ == "__main__":
     Dashboard().run()
