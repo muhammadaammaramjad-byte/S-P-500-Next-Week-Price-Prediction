@@ -16,6 +16,8 @@ from src.dashboard.utils.charts import ChartBuilder
 from src.models.xgboost import XGBoostModel
 from src.dashboard.pages.subscription import render_subscription_page, render_account_page
 from src.analytics.revenue_dashboard import RevenueAnalytics
+from src.dashboard.pages.sla_dashboard import render_sla_dashboard
+from src.dashboard.pages.launch_tracker import render_launch_tracker
 
 # Page configuration
 st.set_page_config(
@@ -78,8 +80,8 @@ class Dashboard:
             model_type = st.selectbox("Select Model", ["XGBoost", "Ensemble", "Linear"])
             horizon = st.slider("Prediction days ahead", 1, 30, 5)
             st.markdown("---")
-            st.markdown("## 💳 Billing")
-            page = st.radio("Navigation", ["Dashboard", "Subscription", "Revenue Analytics"])
+            st.markdown("## 💳 Billing & Ops")
+            page = st.radio("Navigation", ["Dashboard", "Subscription", "Revenue Analytics", "SLA Dashboard", "Launch Tracker"])
             st.markdown("---")
             st.markdown("### ✅ System Status")
             st.markdown("- **Tests:** 66/66 ✅\n- **Coverage:** 94% 📊\n- **CI/CD:** Active 🚀")
@@ -117,6 +119,10 @@ class Dashboard:
             render_subscription_page()
         elif controls['page'] == "Revenue Analytics":
             RevenueAnalytics().render_dashboard()
+        elif controls['page'] == "SLA Dashboard":
+            render_sla_dashboard()
+        elif controls['page'] == "Launch Tracker":
+            render_launch_tracker()
 
 if __name__ == "__main__":
     Dashboard().run()
