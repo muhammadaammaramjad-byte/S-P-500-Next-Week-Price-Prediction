@@ -4,7 +4,7 @@
   dockerfilePath = "Dockerfile"
 
 [deploy]
-  startCommand = "python -m uvicorn src.api.institutional_api:app --host 0.0.0.0 --port ${PORT}"
+  startCommand = "python -m uvicorn src.api.institutional_api:app --host 0.0.0.0 --port 8000"
   healthcheckPath = "/health"
   healthcheckTimeout = 300
   numReplicas = 1
