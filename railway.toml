@@ -1,3 +1,4 @@
+# Final Railway configuration for production use
 [build]
   builder = "DOCKERFILE"
   dockerfilePath = "Dockerfile"
