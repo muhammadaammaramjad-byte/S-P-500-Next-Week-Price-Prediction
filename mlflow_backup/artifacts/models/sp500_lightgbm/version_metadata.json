@@ -1,0 +1,19 @@
+{
+  "model_name": "sp500_lightgbm",
+  "current_version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "stage": "Archived",
+      "created_date": "2026-04-10T22:32:00",
+      "rmse": 0.0390,
+      "mae": 0.0337,
+      "r2": -3.0142,
+      "direction_accuracy": 0.3998,
+      "file": "version_1.pkl"
+    }
+  ],
+  "production_version": null,
+  "staging_version": null,
+  "archived_versions": [1]
+}

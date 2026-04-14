@@ -1,8 +1,0 @@
-﻿fastapi
-uvicorn
-catboost
-pandas
-numpy
-yfinance
-scikit-learn
-joblib

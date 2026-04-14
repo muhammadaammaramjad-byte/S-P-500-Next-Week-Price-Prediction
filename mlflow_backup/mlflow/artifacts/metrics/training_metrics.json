@@ -1,0 +1,13 @@
+{
+  "training_date": "2026-04-11T06:11:31.048841",
+  "model_type": "CatBoostRegressor",
+  "train_rmse": 0.0245,
+  "test_rmse": 0.0265,
+  "test_mae": 0.0197,
+  "test_r2": -0.1351,
+  "direction_accuracy": 0.412,
+  "sharpe_ratio": -1.33,
+  "sortino_ratio": -1.25,
+  "max_drawdown": -0.1797,
+  "win_rate": 0.606
+}

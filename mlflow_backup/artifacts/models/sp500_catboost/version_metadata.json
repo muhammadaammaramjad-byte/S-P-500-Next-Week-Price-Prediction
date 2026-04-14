@@ -1,0 +1,29 @@
+{
+  "model_name": "sp500_catboost",
+  "current_version": 2,
+  "versions": [
+    {
+      "version": 1,
+      "stage": "Archived",
+      "created_date": "2026-04-01T10:30:00",
+      "rmse": 0.0285,
+      "mae": 0.0212,
+      "r2": -0.185,
+      "direction_accuracy": 0.398,
+      "file": "version_1.pkl"
+    },
+    {
+      "version": 2,
+      "stage": "Production",
+      "created_date": "2026-04-10T22:27:18",
+      "rmse": 0.0265,
+      "mae": 0.0197,
+      "r2": -0.1351,
+      "direction_accuracy": 0.412,
+      "file": "version_2.pkl"
+    }
+  ],
+  "production_version": 2,
+  "staging_version": null,
+  "archived_versions": [1]
+}

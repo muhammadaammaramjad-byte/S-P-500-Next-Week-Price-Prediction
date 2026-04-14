@@ -1,0 +1,26 @@
+# Production Deployment Configuration
+deployment:
+  environment: production
+  model_version: 2.0.0
+  deployed_at: 2026-04-10T22:27:18
+  
+  endpoints:
+    - name: api
+      url: http://localhost:8000
+      health_check: /health
+      prediction_endpoint: /predict
+  
+  rollback:
+    enabled: true
+    previous_version: 1
+    auto_rollback_on_error: true
+    error_threshold: 0.05
+  
+  canary:
+    enabled: false
+    percentage: 0
+  
+  a_b_testing:
+    enabled: false
+    test_model: null
+    traffic_split: 0

@@ -1,0 +1,29 @@
+# Ensemble Model Configuration
+model:
+  name: WeightedEnsemble
+  version: 1.0.0
+  type: voting_ensemble
+  base_models:
+    - catboost
+    - xgboost
+    - lightgbm
+    - randomforest
+    - ridge
+    - lasso
+
+weights:
+  catboost: 0.457
+  xgboost: 0.326
+  lightgbm: 0.070
+  randomforest: 0.009
+  ridge: 0.069
+  lasso: 0.069
+
+performance:
+  rmse: 0.0315
+  mae: 0.0258
+  r2: -1.892
+  direction_accuracy: 0.3936
+  improvement_over_best_base: 0.108
+
+ensemble_method: weighted_average

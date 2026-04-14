@@ -1,0 +1,12 @@
+{
+  "total_predictions": 818,
+  "rmse": 0.0265,
+  "mae": 0.0197,
+  "r2": -0.1351,
+  "direction_accuracy": 0.412,
+  "sharpe_ratio": -1.33,
+  "max_drawdown": -0.1797,
+  "calmar_ratio": -0.85,
+  "win_rate": 0.606,
+  "profit_factor": 0.98
+}

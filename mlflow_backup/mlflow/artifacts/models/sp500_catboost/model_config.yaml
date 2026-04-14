@@ -1,0 +1,55 @@
+# CatBoost Model Configuration
+model:
+  name: CatBoostRegressor
+  version: 2.0.0
+  framework: catboost
+  framework_version: 1.2.10
+
+hyperparameters:
+  iterations: 500
+  depth: 6
+  learning_rate: 0.1
+  random_seed: 42
+  verbose: false
+  early_stopping_rounds: 50
+  loss_function: RMSE
+  eval_metric: RMSE
+  task_type: CPU
+  thread_count: -1
+
+features:
+  count: 45
+  names:
+    - open
+    - high
+    - low
+    - close
+    - volume
+    - returns
+    - volatility
+    - sma_20
+    - sma_50
+    - sma_200
+    - rsi
+    - macd
+    - bb_upper
+    - bb_lower
+    - atr
+    - volume_ratio
+    - close_vs_sma20
+    - close_vs_sma50
+    - close_vs_sma200
+
+training:
+  samples: 4086
+  train_split: 0.8
+  test_split: 0.2
+  validation_method: time_series_split
+  cv_folds: 5
+
+performance:
+  rmse: 0.0265
+  mae: 0.0197
+  r2: -0.1351
+  direction_accuracy: 0.412
+  training_time_seconds: 28.5

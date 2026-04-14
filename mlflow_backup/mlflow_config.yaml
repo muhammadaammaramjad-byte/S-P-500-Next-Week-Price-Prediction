@@ -1,0 +1,57 @@
+# MLflow Configuration for S&P 500 Predictor
+
+mlflow:
+  tracking_uri: sqlite:///mlflow/mlflow.db
+  registry_uri: sqlite:///mlflow/mlflow.db
+  experiment_name: sp500_predictor
+  artifact_location: ./mlflow/artifacts
+  
+  # Experiment settings
+  experiment:
+    tags:
+      project: sp500_predictor
+      version: "2.0.0"
+      environment: production
+      team: data_science
+    
+  # Logging settings
+  logging:
+    log_models: true
+    log_params: true
+    log_metrics: true
+    log_artifacts: true
+    log_code: true
+    
+  # Model registry
+  model_registry:
+    model_name: sp500_predictor
+    model_version: "2.0.0"
+    stage: Production
+    description: "CatBoost model for S&P 500 prediction"
+    
+  # Artifacts
+  artifacts:
+    - models/checkpoints/*.pkl
+    - visualizations/plots/*.png
+    - data/features/*.parquet
+    - logs/*.log
+    
+  # Metrics to track
+  metrics:
+    - rmse
+    - mae
+    - r2
+    - direction_accuracy
+    - sharpe_ratio
+    - sortino_ratio
+    - max_drawdown
+    
+  # Parameters to track
+  parameters:
+    - model_type
+    - n_estimators
+    - max_depth
+    - learning_rate
+    - feature_count
+    - train_samples
+    - test_samples

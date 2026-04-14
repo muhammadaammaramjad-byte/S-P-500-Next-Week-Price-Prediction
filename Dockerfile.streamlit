@@ -1,7 +1,36 @@
-﻿FROM python:3.10-slim
+# 🐳 Enterprise Dashboard Dockerfile
+FROM python:3.11-slim
+
 WORKDIR /app
-COPY src/visualization/dashboard/streamlit_app.py .
+
+# Install system dependencies for C++ extensions (XGBoost, etc.)
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    make \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY src/ ./src/
 COPY models/ ./models/
-RUN pip install streamlit pandas plotly
+COPY configs/ ./configs/
+COPY tests/ ./tests/
+
+# Set Python path to ensure module resolution
+ENV PYTHONPATH=/app
+
+# Expose Streamlit port
 EXPOSE 8501
-CMD ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+# Healthcheck for container stability
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+  CMD curl -f http://localhost:8501/_stcore/health || exit 1
+
+# Launch the dashboard
+CMD ["python", "-m", "streamlit", "run", "src/dashboard/app.py", "--server.port=8501", "--server.address=0.0.0.0"]

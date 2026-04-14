@@ -1,0 +1,5 @@
+# 🐳 MLflow with PostgreSQL Support
+FROM ghcr.io/mlflow/mlflow:v2.10.2
+
+# Install psycopg2-binary for PostgreSQL support
+RUN pip install --no-cache-dir psycopg2-binary

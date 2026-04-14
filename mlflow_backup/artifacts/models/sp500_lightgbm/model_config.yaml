@@ -1,0 +1,24 @@
+# LightGBM Model Configuration
+model:
+  name: LGBMRegressor
+  version: 1.0.0
+  framework: lightgbm
+  framework_version: 4.5.0
+
+hyperparameters:
+  n_estimators: 300
+  max_depth: 6
+  num_leaves: 31
+  learning_rate: 0.01
+  subsample: 0.8
+  colsample_bytree: 0.8
+  reg_alpha: 0
+  reg_lambda: 0
+  random_state: 42
+
+performance:
+  rmse: 0.0390
+  mae: 0.0337
+  r2: -3.0142
+  direction_accuracy: 0.3998
+  training_time_seconds: 32.8
