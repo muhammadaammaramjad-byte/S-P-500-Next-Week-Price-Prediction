@@ -4,6 +4,7 @@ from fastapi.responses import Response
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
+import os
 import uuid
 import numpy as np
 import logging
@@ -102,9 +103,12 @@ async def startup():
 async def shutdown():
     await SessionManager.close_session()
 
+# API key loaded from environment — never hardcode credentials
+_INSTITUTIONAL_API_KEY = os.getenv("INSTITUTIONAL_API_KEY", "")
+
 @app.post("/v3/institutional/execute", response_model=OrderResponse)
 async def execute_order(order: InstitutionalOrder, x_api_key: str = Header(...)):
-    if x_api_key != "EMPIRE_PRO_INSTITUTIONAL":
+    if not _INSTITUTIONAL_API_KEY or x_api_key != _INSTITUTIONAL_API_KEY:
         raise HTTPException(status_code=401, detail="Invalid Key")
     
     fills, exec_price = await SmartOrderRouter.execute_sor(order.symbol, order.amount_usd, order.max_slippage_bps)
