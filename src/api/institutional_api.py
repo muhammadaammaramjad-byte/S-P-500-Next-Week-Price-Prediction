@@ -200,8 +200,8 @@ async def health():
 
 @app.get("/")
 async def root():
-    """Root endpoint for Railway verification"""
-    return {"status": "alive", "port": int(os.getenv("PORT", 8000))}
+    """Root endpoint for basic verification"""
+    return {"message": "FinTech Empire API is running", "version": "3.0.0"}
 
 @app.get("/predict")
 async def predict(days: int = Query(default=5, ge=1, le=365)):
