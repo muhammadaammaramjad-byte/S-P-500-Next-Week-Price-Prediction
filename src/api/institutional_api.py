@@ -1,5 +1,5 @@
 """Master Institutional API for Hedge Fund Clients"""
-from fastapi import FastAPI, HTTPException, Depends, Header, Response
+from fastapi import FastAPI, HTTPException, Depends, Header, Response, Query
 from pydantic import BaseModel
 from typing import Optional, Dict, List
 from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
@@ -41,18 +41,22 @@ class OrderResponse(BaseModel):
 
 async def smart_order_router(order: InstitutionalOrder) -> List[Dict]:
     """Smart Order Routing (SOR) across simulated institutional pools"""
-    # Logic: Cross-reference Binance, Coinbase, LMAX, and Internal Dark Pool
     await asyncio.sleep(0.012) # 12ms network simulation
+    
+    # Generate a dynamic base price based on length of symbol to make the mock somewhat realistic
+    base_price = sum(ord(c) for c in order.symbol) * 100.0 if order.symbol else 45000.0
+    
     return [
-        {"venue": "Binance", "allocation": 0.4, "price": 45000.10},
-        {"venue": "Coinbase", "allocation": 0.4, "price": 45000.15},
-        {"venue": "DarkPool-A", "allocation": 0.2, "price": 45000.08}
+        {"venue": "Binance", "allocation": 0.4, "price": round(base_price * 1.000002, 2)},
+        {"venue": "Coinbase", "allocation": 0.4, "price": round(base_price * 1.000003, 2)},
+        {"venue": "DarkPool-A", "allocation": 0.2, "price": round(base_price * 0.999998, 2)}
     ]
 
 async def stealth_executor(allocations: List[Dict]) -> Dict:
     """Execute order with stealth algorithms to minimize market impact"""
+    avg_price = sum((f["price"] * f["allocation"]) for f in allocations) if allocations else 0.0
     return {
-        "avg_price": 45000.12,
+        "avg_price": round(avg_price, 2),
         "slippage": 4.2, # bps
         "fills": allocations
     }
@@ -112,14 +116,18 @@ async def metrics():
     """Prometheus metrics endpoint for system observability"""
     return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
+# Global shared instance to simulate proper dependency loading and prevent memory overhead
+_model_instance = XGBoostModel()
+
 @app.get("/predict")
-async def get_prediction(days: int = 5):
+async def get_prediction(
+    days: int = Query(5, ge=1, le=365, description="Number of days to forecast")
+):
     """
     Public prediction endpoint for testing and standard access.
     Returns simulated predictions based on historical model averages.
     """
-    model = XGBoostModel()
-    predictions = model.predict_future(days)
+    predictions = _model_instance.predict_future(days)
     return {
         "predictions": [round(p, 2) for p in predictions],
         "confidence": 0.94
