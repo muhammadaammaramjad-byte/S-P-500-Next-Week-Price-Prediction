@@ -7,6 +7,7 @@ from fastapi import FastAPI, HTTPException, Header, Query, Request
 from fastapi.responses import Response
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any, Tuple
+import os
 from datetime import datetime
 import uuid
 import numpy as np
@@ -199,8 +200,8 @@ async def health():
 
 @app.get("/")
 async def root():
-    """Root endpoint for basic verification"""
-    return {"message": "FinTech Empire API is running", "version": "3.0.0"}
+    """Root endpoint for Railway verification"""
+    return {"status": "alive", "port": int(os.getenv("PORT", 8000))}
 
 @app.get("/predict")
 async def predict(days: int = Query(default=5, ge=1, le=365)):
