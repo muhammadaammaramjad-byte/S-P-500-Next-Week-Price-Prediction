@@ -10,6 +10,7 @@ services:
       - ./logs:/app/logs
       - ./monitoring:/app/monitoring
       - ./data:/app/data
+      - ./src:/app/src
     environment:
       - PYTHONUNBUFFERED=1
       - ENVIRONMENT=production
@@ -46,12 +47,20 @@ services:
     volumes:
       - ./models:/app/models
       - ./logs:/app/logs
+      - ./data:/app/data
     environment:
       - API_URL=http://api:8000
+      - PYTHONPATH=/app
+      - ENVIRONMENT=production
     depends_on:
       api:
         condition: service_healthy
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - predictor-network
     logging:
@@ -102,7 +111,9 @@ services:
 
   # MLflow Tracking Server (FIXED IMAGE)
   mlflow:
-    image: ghcr.io/mlflow/mlflow:v2.10.2
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.mlflow
     container_name: sp500-predictor-mlflow
     ports:
       - "5000:5000"

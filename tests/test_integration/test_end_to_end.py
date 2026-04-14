@@ -76,6 +76,8 @@ class TestEndToEnd:
         # Simulate API prediction
         def make_prediction(features):
             # Simple mock prediction logic that respects dimensions
+            if isinstance(features, pd.DataFrame):
+                return features.iloc[:, 0].values * 0.01
             if len(features.shape) == 1:
                 return np.array([features[0] * 0.01])
             return features[:, 0] * 0.01
