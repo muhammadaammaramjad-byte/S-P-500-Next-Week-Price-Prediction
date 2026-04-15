@@ -8,7 +8,19 @@
 [![Last Commit](https://img.shields.io/github/last-commit/muhammadaammaramjad-byte/sp500-predictor?style=for-the-badge&logo=github)](https://github.com/muhammadaammaramjad-byte/sp500-predictor/commits/main)
 [![Code Size](https://img.shields.io/github/languages/code-size/muhammadaammaramjad-byte/sp500-predictor?style=for-the-badge&logo=github)](https://github.com/muhammadaammaramjad-byte/sp500-predictor)
 
-> **Unleash the full power of your financial potential with the 100X FinTech Empire. This comprehensive platform integrates an advanced, AI-powered S&P 500 prediction engine with a sophisticated crypto arbitrage bot. Leveraging state-of-the-art machine learning for optimal path ranking, atomic execution capabilities, and a full observability stack, the FinTech Empire is engineered for precision, profitability, and unparalleled market insight. Navigate complex financial landscapes with confidence and achieve superior returns through intelligent, automated strategies.**
+> **The 100X FinTech Empire empowers you with an unparalleled financial ecosystem, meticulously engineered for precision, profitability, and market dominance. This comprehensive platform integrates a cutting-edge, AI-powered S&P 500 prediction engine with a sophisticated crypto arbitrage bot, offering intelligent, automated strategies to navigate complex financial landscapes and achieve superior returns.**
+
+---
+
+## KEY FEATURES
+
+*   **AI-Driven S&P 500 Prediction**: Harness advanced machine learning models (XGBoost, Scikit-learn, Optuna, Random Forest) for highly accurate 5-day trend analysis and investment recommendations.
+*   **High-Frequency Crypto Arbitrage**: Capitalize on real-time price discrepancies across 10+ exchanges with an atomic execution engine and ML-powered optimal path ranking.
+*   **Robust Observability Stack**: Gain deep insights into system performance, market dynamics, and operational health through Prometheus, Grafana, and comprehensive dashboard metrics.
+*   **Scalable & Resilient Infrastructure**: Built with Docker, Docker Compose, PostgreSQL, and Redis for high availability, low latency (e.g., 4ms WebSocket Hub), and efficient data management.
+*   **Institutional-Grade APIs**: Secure and efficient API endpoints for health checks, predictions, and institutional trade execution, powered by FastAPI and Uvicorn.
+*   **Full CI/CD & MLOps Pipeline**: Ensures continuous integration, automated testing (71/71 tests passing, 94% coverage), and model auto-retraining (MLflow) for peak performance.
+*   **Live Dashboard & Analytics**: Visualize critical metrics including AUM, trading volume, model confidence, and infrastructure health with Streamlit and Plotly dashboards.
 
 ---
 
@@ -55,14 +67,20 @@
 ## VISUAL DASHBOARD INSIGHTS
 
 | Component | Screenshot | Description |
-|-----------|------------|-------------|
-| **S&P 500 Predictor** | ![S&P 500](https://i.postimg.cc/472dDGLG/1.png) | Real-time market analysis with AI forecasting |
-| **Crypto Arbitrage** | ![Crypto](https://i.postimg.cc/ZBsRGm7Z/2.png) | High-frequency arbitrage opportunities |
-| **Infrastructure Health** | ![Health](https://i.postimg.cc/VrZ6xwGm/3.png) | Global node health and latency metrics |
-| **Portfolio Metrics** | ![Portfolio](https://i.postimg.cc/7Gt6F4sq/4.png) | AUM, volume, and performance tracking |
-| **Detailed Analytics** | ![Analytics](https://i.postimg.cc/FdCRMvW9/5.png) | Deep dive into system metrics |
-| **Deployment Status** | ![Deployment](https://i.postimg.cc/1VgtPdTL/6.png) | Production verification |
-| **Final Certification** | ![Certification](https://i.postimg.cc/JHynmFgS/7.png) | Imperial Seal of Approval |
+|-----------|-------------------------|
+| **S&P 500 Predictor** | ![S&P 500](https://i.postimg.cc/kGqbtXW2/1.png) | Real-time market analysis with AI forecasting |
+| **Crypto Arbitrage** | ![Crypto](https://i.postimg.cc/rsMrtF5d/2.png) | High-frequency arbitrage opportunities |
+| **Infrastructure Health** | ![Health](https://i.postimg.cc/4ys9hNp7/3.png) | Global node health and latency metrics |
+| **Portfolio Metrics** | ![Portfolio](https://i.postimg.cc/tJpxVCFn/4.png) | AUM, volume, and performance tracking |
+| **Detailed Analytics** | ![Analytics](https://i.postimg.cc/SRkMzNcz/5.png) | Deep dive into system metrics |
+| **Deployment Status** | ![Deployment](https://i.postimg.cc/D06bQkcy/6.png) | Production verification |
+| **Final Certification** | ![Certification](https://i.postimg.cc/D06bQkcf/7.png) | Imperial Seal of Approval |
+| **Additional Insight 8** | ![Insight 8](https://i.postimg.cc/c4pT7cHQ/8.png) | Further insights into the system |
+| **Additional Insight 9** | ![Insight 9](https://i.postimg.cc/JnQ4xKMt/9.png) | More detailed analytics |
+| **Additional Insight 10** | ![Insight 10](https://i.postimg.cc/t4PbDDzT/10.png) | Operational metrics |
+| **Additional Insight 11** | ![Insight 11](https://i.postimg.cc/kMZLZKGR/11.png) | Performance overview |
+| **Additional Insight 12** | ![Insight 12](https://i.postimg.cc/vBTS2ZdN/12.png) | System health snapshot |
+| **Additional Insight 13** | ![Insight 13](https://i.postimg.cc/JhYWzgrc/13.png) | Comprehensive data visualization |
 
 ---
 
