@@ -5,9 +5,9 @@ from typing import Dict, Optional
 from datetime import datetime
 import streamlit as st
 
-# Initialize Stripe with your secret key
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "sk_test_...")
-STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "whsec_...")
+# Initialize Stripe — keys MUST come from environment variables
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 
 class PaymentManager:
     """Handle subscriptions, payments, and billing"""

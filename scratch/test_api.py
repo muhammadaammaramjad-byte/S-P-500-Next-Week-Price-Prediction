@@ -8,6 +8,7 @@ from fastapi.responses import Response
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
+import os
 import uuid
 import numpy as np
 import logging
@@ -245,7 +246,8 @@ async def execute_order(
     - **execution_style**: TWAP, VWAP, POV, or ICEBERG
     """
     # API Key validation
-    if x_api_key != "EMPIRE_PRO_INSTITUTIONAL":
+    _inst_key = os.getenv("INSTITUTIONAL_API_KEY", "")
+    if not _inst_key or x_api_key != _inst_key:
         API_REQUESTS.labels(endpoint="/v3/institutional/execute", method="POST", status="401").inc()
         raise HTTPException(status_code=401, detail="Invalid API key")
 

@@ -15,8 +15,8 @@ async def main():
     print("START: Crypto Arbitrage Bot v3.0 - Smart Path Ranking Enabled")
     
     # Initialize components
-    api_key = os.getenv("BINANCE_API_KEY", "DEMO_KEY")
-    api_secret = os.getenv("BINANCE_SECRET_KEY", "DEMO_SECRET")
+    api_key = os.getenv("BINANCE_API_KEY", "")
+    api_secret = os.getenv("BINANCE_SECRET_KEY", "")
     
     binance = BinanceExchange(api_key=api_key, api_secret=api_secret)
     # await binance.connect()
