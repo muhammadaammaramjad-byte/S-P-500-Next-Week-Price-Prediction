@@ -15,13 +15,7 @@ from src.dashboard.utils.data_loader import DataLoader
 from src.dashboard.utils.charts import ChartBuilder
 from src.models.xgboost import XGBoostModel
 from src.dashboard.pages import render_subscription_page, render_account_page, render_sla_dashboard, render_launch_tracker
-try:
-    from src.analytics.revenue_dashboard import RevenueAnalytics
-except ImportError:
-    class RevenueAnalytics:
-        def render_dashboard(self):
-            import streamlit as st
-            st.warning("⚠️ Revenue Analytics currently unavailable (missing dependencies)")
+from src.analytics.revenue_dashboard import RevenueAnalytics
 
 # Page configuration
 st.set_page_config(
