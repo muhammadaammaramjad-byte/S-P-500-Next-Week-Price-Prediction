@@ -16,6 +16,7 @@ services:
       - ENVIRONMENT=production
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - REDIS_URL=redis://redis:6379
+      - INSTITUTIONAL_API_KEY=${INSTITUTIONAL_API_KEY:-}
     depends_on:
       mlflow:
         condition: service_started
