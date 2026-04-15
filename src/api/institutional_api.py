@@ -98,10 +98,13 @@ def normalize_symbol(symbol: str, exchange: str) -> str:
     if exchange == "binance":
         return symbol.replace("-", "").upper()
     elif exchange == "coinbase":
+        # Coinbase v2 API expects 'BTC-USD' format
         if "-" not in symbol:
-            if "USDT" in symbol:
-                return symbol.replace("USDT", "-USD")
-            return f"{symbol[:3]}-{symbol[3:]}"
+            if symbol.endswith("USD"):
+                return f"{symbol[:-3]}-USD"
+            if symbol.endswith("USDT"):
+                return f"{symbol[:-4]}-USD"
+            return f"{symbol}-USD"
         return symbol
     return symbol
 
@@ -157,7 +160,7 @@ async def smart_order_router_real(
     
     try:
         binance_task = session.get(f"https://api.binance.com/api/v3/ticker/price?symbol={binance_symbol}")
-        coinbase_task = session.get(f"https://api.coinbase.com/v2/prices/{coinbase_symbol}-USD/spot")
+        coinbase_task = session.get(f"https://api.coinbase.com/v2/prices/{coinbase_symbol}/spot")
         
         binance_resp, coinbase_resp = await asyncio.gather(binance_task, coinbase_task)
         
@@ -309,7 +312,11 @@ async def startup_event():
     logger.info("🏢 FinTech Empire Institutional API v3.0")
     logger.info("🚀 Starting up on Railway...")
     logger.info(f"✅ Healthcheck endpoint: /health")
-    logger.info(f"✅ Port: 8000")
+    logger.info(f"✅ Port: {os.getenv('PORT', '8000')}")
+    if not os.getenv("INSTITUTIONAL_API_KEY"):
+        logger.warning("⚠️  INSTITUTIONAL_API_KEY not set! /execute endpoint will be disabled.")
+    else:
+        logger.info("🔐 INSTITUTIONAL_API_KEY loaded successfully")
     logger.info("=" * 60)
 
 @app.on_event("shutdown")
