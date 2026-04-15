@@ -39,6 +39,7 @@ ujson>=5.9
 
 # Dev tools
 pytest>=7.4
+pytest-cov>=4.1
 black>=23.12
 
 # Monetization

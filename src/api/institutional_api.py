@@ -262,6 +262,11 @@ async def execute_order(
         API_REQUESTS.labels(endpoint="/v3/institutional/execute", method="POST", status="500").inc()
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/ping")
+async def ping():
+    """Simple ping endpoint for initial healthcheck"""
+    return {"pong": True}
+
 @app.get("/metrics")
 async def metrics():
     """Prometheus metrics endpoint"""

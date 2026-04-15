@@ -51,7 +51,8 @@ class RevenueAnalytics:
         fig.add_trace(go.Scatter(
             x=self.revenue_data['date'],
             y=self.revenue_data['revenue'],
-            mode='lines+fill',
+            mode='lines',
+            fill='tozeroy',
             name='Daily Revenue',
             line=dict(color='#1E88E5', width=3)
         ))

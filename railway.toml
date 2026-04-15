@@ -1,11 +1,12 @@
+# Final Railway configuration for production use
 [build]
   builder = "DOCKERFILE"
   dockerfilePath = "Dockerfile"
 
 [deploy]
-  startCommand = "python -m uvicorn src.api.institutional_api:app --host 0.0.0.0 --port 8000"
+  startCommand = "python -m uvicorn src.api.institutional_api:app --host 0.0.0.0 --port ${PORT:-8000}"
   healthcheckPath = "/health"
-  healthcheckTimeout = 30
+  healthcheckTimeout = 300
   numReplicas = 1
   restartPolicyType = "ON_FAILURE"
   restartPolicyMaxRetries = 3
