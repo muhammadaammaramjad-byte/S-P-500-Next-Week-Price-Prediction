@@ -254,8 +254,6 @@ async def institutional_health():
         "volume_processed_24h": "$24.7M"
     }
 
-# API key loaded from environment — never hardcode credentials
-_INSTITUTIONAL_API_KEY = os.getenv("INSTITUTIONAL_API_KEY", "EMPIRE_PRO_INSTITUTIONAL")
 
 @app.post("/v3/institutional/execute", response_model=OrderResponse)
 async def execute_order(
@@ -263,7 +261,8 @@ async def execute_order(
     x_api_key: str = Header(..., alias="x-api-key")
 ):
     """Institutional trade execution endpoint with stealth optimization"""
-    if not _INSTITUTIONAL_API_KEY or x_api_key != _INSTITUTIONAL_API_KEY:
+    _inst_key = os.getenv("INSTITUTIONAL_API_KEY", "")
+    if not _inst_key or x_api_key != _inst_key:
         API_REQUESTS.labels(endpoint="/v3/institutional/execute", method="POST", status="401").inc()
         raise HTTPException(status_code=401, detail="Invalid API key")
     
