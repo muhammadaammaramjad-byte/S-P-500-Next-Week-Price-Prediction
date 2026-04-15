@@ -31,15 +31,16 @@ def render_sla_dashboard():
         st.progress(metrics["uptime"] / 100)
     
     with col2:
-        delta = sla_targets["latency_p99"] - metrics["latency_p99"]
+        delta = metrics["latency_p99"] - sla_targets["latency_p99"]
         # Use delta_color="inverse" for metrics where lower is better
-        st.metric("P99 Latency", f"{metrics['latency_p99']}ms", delta=f"-{delta}ms", delta_color="inverse")
+        # Current - Target: negative is good (green), positive is bad (red)
+        st.metric("P99 Latency", f"{metrics['latency_p99']}ms", delta=f"{delta}ms", delta_color="inverse")
         st.progress(min(metrics["latency_p99"] / sla_targets["latency_p99"], 1.0))
     
     with col3:
-        delta = sla_targets["error_rate"] - metrics["error_rate"]
+        delta = metrics["error_rate"] - sla_targets["error_rate"]
         # Use delta_color="inverse" for metrics where lower is better
-        st.metric("Error Rate", f"{metrics['error_rate']*100:.3f}%", delta=f"-{delta*100:.3f}%", delta_color="inverse")
+        st.metric("Error Rate", f"{metrics['error_rate']*100:.3f}%", delta=f"{delta*100:.3f}%", delta_color="inverse")
         st.progress(min(metrics["error_rate"] / sla_targets["error_rate"], 1.0))
     
     with col4:
