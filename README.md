@@ -8,7 +8,19 @@
 [![Last Commit](https://img.shields.io/github/last-commit/muhammadaammaramjad-byte/sp500-predictor?style=for-the-badge&logo=github)](https://github.com/muhammadaammaramjad-byte/sp500-predictor/commits/main)
 [![Code Size](https://img.shields.io/github/languages/code-size/muhammadaammaramjad-byte/sp500-predictor?style=for-the-badge&logo=github)](https://github.com/muhammadaammaramjad-byte/sp500-predictor)
 
-> **Unleash the full power of your financial potential with the 100X FinTech Empire. This comprehensive platform integrates an advanced, AI-powered S&P 500 prediction engine with a sophisticated crypto arbitrage bot. Leveraging state-of-the-art machine learning for optimal path ranking, atomic execution capabilities, and a full observability stack, the FinTech Empire is engineered for precision, profitability, and unparalleled market insight. Navigate complex financial landscapes with confidence and achieve superior returns through intelligent, automated strategies.**
+> **The 100X FinTech Empire empowers you with an unparalleled financial ecosystem, meticulously engineered for precision, profitability, and market dominance. This comprehensive platform integrates a cutting-edge, AI-powered S&P 500 prediction engine with a sophisticated crypto arbitrage bot, offering intelligent, automated strategies to navigate complex financial landscapes and achieve superior returns.**
+
+---
+
+## KEY FEATURES
+
+*   **AI-Driven S&P 500 Prediction**: Harness advanced machine learning models (XGBoost, Scikit-learn, Optuna, Random Forest) for highly accurate 5-day trend analysis and investment recommendations.
+*   **High-Frequency Crypto Arbitrage**: Capitalize on real-time price discrepancies across 10+ exchanges with an atomic execution engine and ML-powered optimal path ranking.
+*   **Robust Observability Stack**: Gain deep insights into system performance, market dynamics, and operational health through Prometheus, Grafana, and comprehensive dashboard metrics.
+*   **Scalable & Resilient Infrastructure**: Built with Docker, Docker Compose, PostgreSQL, and Redis for high availability, low latency (e.g., 4ms WebSocket Hub), and efficient data management.
+*   **Institutional-Grade APIs**: Secure and efficient API endpoints for health checks, predictions, and institutional trade execution, powered by FastAPI and Uvicorn.
+*   **Full CI/CD & MLOps Pipeline**: Ensures continuous integration, automated testing (71/71 tests passing, 94% coverage), and model auto-retraining (MLflow) for peak performance.
+*   **Live Dashboard & Analytics**: Visualize critical metrics including AUM, trading volume, model confidence, and infrastructure health with Streamlit and Plotly dashboards.
 
 ---
 
