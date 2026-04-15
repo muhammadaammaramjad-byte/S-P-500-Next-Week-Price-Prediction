@@ -1,10 +1,6 @@
-"""
-🏢 FinTech Empire Institutional API - v3.0 - RAILWAY OPTIMIZED
-Enterprise-grade FastAPI gateway with Railway healthcheck compatibility
-"""
+"""Master Institutional API for Hedge Fund Clients"""
 
-from fastapi import FastAPI, HTTPException, Header, Query, Request
-from fastapi.responses import Response
+from fastapi import FastAPI, HTTPException, Depends, Header, Response, Query, Request
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any, Tuple
 import os
