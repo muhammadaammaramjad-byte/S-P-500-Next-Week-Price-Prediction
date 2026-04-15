@@ -55,14 +55,20 @@
 ## VISUAL DASHBOARD INSIGHTS
 
 | Component | Screenshot | Description |
-|-----------|------------|-------------|
-| **S&P 500 Predictor** | ![S&P 500](https://i.postimg.cc/472dDGLG/1.png) | Real-time market analysis with AI forecasting |
-| **Crypto Arbitrage** | ![Crypto](https://i.postimg.cc/ZBsRGm7Z/2.png) | High-frequency arbitrage opportunities |
-| **Infrastructure Health** | ![Health](https://i.postimg.cc/VrZ6xwGm/3.png) | Global node health and latency metrics |
-| **Portfolio Metrics** | ![Portfolio](https://i.postimg.cc/7Gt6F4sq/4.png) | AUM, volume, and performance tracking |
-| **Detailed Analytics** | ![Analytics](https://i.postimg.cc/FdCRMvW9/5.png) | Deep dive into system metrics |
-| **Deployment Status** | ![Deployment](https://i.postimg.cc/1VgtPdTL/6.png) | Production verification |
-| **Final Certification** | ![Certification](https://i.postimg.cc/JHynmFgS/7.png) | Imperial Seal of Approval |
+|-----------|-------------------------|
+| **S&P 500 Predictor** | ![S&P 500](https://i.postimg.cc/kGqbtXW2/1.png) | Real-time market analysis with AI forecasting |
+| **Crypto Arbitrage** | ![Crypto](https://i.postimg.cc/rsMrtF5d/2.png) | High-frequency arbitrage opportunities |
+| **Infrastructure Health** | ![Health](https://i.postimg.cc/4ys9hNp7/3.png) | Global node health and latency metrics |
+| **Portfolio Metrics** | ![Portfolio](https://i.postimg.cc/tJpxVCFn/4.png) | AUM, volume, and performance tracking |
+| **Detailed Analytics** | ![Analytics](https://i.postimg.cc/SRkMzNcz/5.png) | Deep dive into system metrics |
+| **Deployment Status** | ![Deployment](https://i.postimg.cc/D06bQkcy/6.png) | Production verification |
+| **Final Certification** | ![Certification](https://i.postimg.cc/D06bQkcf/7.png) | Imperial Seal of Approval |
+| **Additional Insight 8** | ![Insight 8](https://i.postimg.cc/c4pT7cHQ/8.png) | Further insights into the system |
+| **Additional Insight 9** | ![Insight 9](https://i.postimg.cc/JnQ4xKMt/9.png) | More detailed analytics |
+| **Additional Insight 10** | ![Insight 10](https://i.postimg.cc/t4PbDDzT/10.png) | Operational metrics |
+| **Additional Insight 11** | ![Insight 11](https://i.postimg.cc/kMZLZKGR/11.png) | Performance overview |
+| **Additional Insight 12** | ![Insight 12](https://i.postimg.cc/vBTS2ZdN/12.png) | System health snapshot |
+| **Additional Insight 13** | ![Insight 13](https://i.postimg.cc/JhYWzgrc/13.png) | Comprehensive data visualization |
 
 ---
 
