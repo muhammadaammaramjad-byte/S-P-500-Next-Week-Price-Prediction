@@ -1,10 +1,6 @@
-"""
-🏢 FinTech Empire Institutional API - v3.0 - RAILWAY OPTIMIZED
-Enterprise-grade FastAPI gateway with Railway healthcheck compatibility
-"""
+"""Master Institutional API for Hedge Fund Clients"""
 
-from fastapi import FastAPI, HTTPException, Header, Query, Request
-from fastapi.responses import Response
+from fastapi import FastAPI, HTTPException, Depends, Header, Response, Query, Request
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any, Tuple
 import os
@@ -254,14 +250,16 @@ async def institutional_health():
         "volume_processed_24h": "$24.7M"
     }
 
+# API key loaded from environment — never hardcode credentials
+_INSTITUTIONAL_API_KEY = os.getenv("INSTITUTIONAL_API_KEY", "")
+
 @app.post("/v3/institutional/execute", response_model=OrderResponse)
 async def execute_order(
     order: InstitutionalOrder,
     x_api_key: str = Header(..., alias="x-api-key")
 ):
-    """Institutional trade execution endpoint with stealth optimization"""
-    _inst_key = os.getenv("INSTITUTIONAL_API_KEY", "")
-    if not _inst_key or x_api_key != _inst_key:
+    """Institutional trade execution endpoint"""
+    if not _INSTITUTIONAL_API_KEY or x_api_key != _INSTITUTIONAL_API_KEY:
         API_REQUESTS.labels(endpoint="/v3/institutional/execute", method="POST", status="401").inc()
         raise HTTPException(status_code=401, detail="Invalid API key")
     
