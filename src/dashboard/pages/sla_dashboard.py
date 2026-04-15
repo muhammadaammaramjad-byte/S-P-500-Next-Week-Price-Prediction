@@ -32,14 +32,19 @@ def render_sla_dashboard():
     
     with col2:
         delta = sla_targets["latency_p99"] - metrics["latency_p99"]
-        st.metric("P99 Latency", f"{metrics['latency_p99']}ms", delta=f"-{delta}ms", delta_color="normal")
+        # Use delta_color="inverse" for metrics where lower is better
+        st.metric("P99 Latency", f"{metrics['latency_p99']}ms", delta=f"-{delta}ms", delta_color="inverse")
+        st.progress(min(metrics["latency_p99"] / sla_targets["latency_p99"], 1.0))
     
     with col3:
         delta = sla_targets["error_rate"] - metrics["error_rate"]
-        st.metric("Error Rate", f"{metrics['error_rate']*100:.3f}%", delta=f"-{delta*100:.3f}%")
+        # Use delta_color="inverse" for metrics where lower is better
+        st.metric("Error Rate", f"{metrics['error_rate']*100:.3f}%", delta=f"-{delta*100:.3f}%", delta_color="inverse")
+        st.progress(min(metrics["error_rate"] / sla_targets["error_rate"], 1.0))
     
     with col4:
         st.metric("Current SLA Grade", "A++", delta="Exceeding targets")
+        st.progress(1.0) # Solid bar for A++ grade
     
     # Uptime history
     st.markdown("### Uptime History (Last 30 Days)")
@@ -90,6 +95,8 @@ def render_sla_dashboard():
             st.write(f"**Impact:** {incident['duration']} of degraded performance")
             st.success("Resolved")
     
-    # Compensation tracker
     st.markdown("### SLA Compensation Status")
     st.info("No SLA breaches in the last 30 days. $0 compensation owed.")
+
+if __name__ == "__main__":
+    render_sla_dashboard()
