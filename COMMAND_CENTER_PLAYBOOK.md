@@ -35,9 +35,9 @@ This document serves as the master orchestration guide for the FinTech Empire ec
 - **Order Execution**:
   ```powershell
   curl.exe -i -X POST "http://localhost:8000/v3/institutional/execute" `
-    -H "x-api-key: EMPIRE_PRO_INSTITUTIONAL" `
+    -H "x-api-key: YOUR_INSTITUTIONAL_API_KEY" `
     -H "Content-Type: application/json" `
-    -d '{\"client_id\": \"HF_ALPHA\", \"symbol\": \"SPY\", \"amount_usd\": 1000000}'
+    -d '{"symbol": "BTC-USD", "amount_usd": 10000.0, "max_slippage_bps": 15}'
   ```
 
 ## 4. Dashboard Access Matrix

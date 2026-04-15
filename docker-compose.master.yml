@@ -13,6 +13,7 @@ services:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - REDIS_HOST=redis
       - POSTGRES_HOST=db
+      - INSTITUTIONAL_API_KEY=${INSTITUTIONAL_API_KEY:-}
     depends_on:
       - db
       - redis
