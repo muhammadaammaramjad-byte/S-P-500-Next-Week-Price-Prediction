@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Introduction to Linear Algebra — For Data Scientists</title>
+<meta name="author" content="M. Aammar Amjad" />
+<meta name="description" content="A compact, diagram-rich textbook on Linear Algebra written for aspiring data scientists — by M. Aammar Amjad." />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
+        onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'\\[',right:'\\]',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError:false});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+
+<!-- =================== COVER =================== -->
+<section class="cover">
+  <div>
+    <div class="eyebrow">A Data Scientist's Companion</div>
+    <h1>Introduction to<br/>Linear Algebra</h1>
+    <div class="redbar"></div>
+    <div class="sub">The mathematics behind modern machine learning,<br/>explained with diagrams, code, and intuition.</div>
+  </div>
+
+  <svg class="art" width="420" height="420" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 Z" fill="#c10f1a"/>
+      </marker>
+      <marker id="arrW" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 Z" fill="#ffffff"/>
+      </marker>
+    </defs>
+    <g stroke="#1f1f1f" stroke-width="1">
+      <line x1="0"   y1="210" x2="420" y2="210"/>
+      <line x1="210" y1="0"   x2="210" y2="420"/>
+    </g>
+    <!-- matrix grid backdrop -->
+    <g fill="none" stroke="#2a2a2a" stroke-width="1" opacity="0.8">
+      <rect x="40"  y="40"  width="340" height="340"/>
+      <line x1="40"  y1="125" x2="380" y2="125"/>
+      <line x1="40"  y1="210" x2="380" y2="210"/>
+      <line x1="40"  y1="295" x2="380" y2="295"/>
+      <line x1="125" y1="40"  x2="125" y2="380"/>
+      <line x1="210" y1="40"  x2="210" y2="380"/>
+      <line x1="295" y1="40"  x2="295" y2="380"/>
+    </g>
+    <g opacity="0.9">
+      <rect x="41"  y="41"  width="84" height="84" fill="#c10f1a"/>
+      <rect x="211" y="211" width="84" height="84" fill="#c10f1a"/>
+      <rect x="295" y="125" width="84" height="84" fill="#ffffff" fill-opacity="0.08" stroke="#c10f1a"/>
+    </g>
+    <!-- two vectors -->
+    <line x1="210" y1="210" x2="360" y2="110" stroke="#c10f1a" stroke-width="3" marker-end="url(#arrR)"/>
+    <line x1="210" y1="210" x2="310" y2="330" stroke="#ffffff" stroke-width="3" marker-end="url(#arrW)"/>
+    <!-- eigen ellipse -->
+    <ellipse cx="210" cy="210" rx="120" ry="55" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.5" transform="rotate(-25 210 210)"/>
+  </svg>
+
+  <div>
+    <div class="author">By <strong>M. Aammar Amjad</strong></div>
+    <div class="author" style="opacity:.7;font-size:.9rem;margin-top:.3rem">First Edition · April 2026</div>
+  </div>
+</section>
+
+<!-- =================== PREFACE =================== -->
+<section class="preface">
+  <h2>Preface</h2>
+  <p>This book is a compact, no-nonsense guide to linear algebra written for people who want to <em>use</em> it — most of all, data scientists and machine-learning engineers. Every chapter follows the same rhythm: concise definitions, one clean worked example, a diagram, a short NumPy snippet, one multiple-choice question, one or two problems to solve, and a one-glance recap card.</p>
+
+  <p>The goal is not rigour for rigour's sake. The goal is <strong>fluency</strong>: when you read a paper that says "we project onto the top-k singular vectors" or "the Hessian is positive definite", you should picture what is happening.</p>
+
+  <div class="callout">
+    <div class="label">How to read this book</div>
+    <ol style="margin:.3rem 0 .3rem 1.1rem">
+      <li>Skim the diagram first — the picture carries 60% of the idea.</li>
+      <li>Read the definition box. Then the worked example.</li>
+      <li>Answer the MCQ <em>before</em> peeking at the answer.</li>
+      <li>Attempt the problems with pen and paper, then verify in NumPy.</li>
+      <li>Close the chapter by re-reading only the recap card.</li>
+    </ol>
+  </div>
+
+  <p>Notation is kept standard: bold lower-case for vectors ($\mathbf{v}$), upper-case for matrices ($A$), $\mathbb{R}^{n}$ for $n$-dimensional real space, $A^{\top}$ for transpose, $A^{-1}$ for inverse, and $\langle \mathbf{u},\mathbf{v} \rangle$ for the inner product.</p>
+
+  <p style="text-align:right;margin-top:2rem"><em>— M. Aammar Amjad</em></p>
+</section>
+
+<!-- =================== TABLE OF CONTENTS =================== -->
+<section class="toc">
+  <h2>Index</h2>
+  <ol>
+    <li><span class="cnum">1.</span><span class="ctitle"><a href="#ch1">Vectors &amp; Vector Spaces</a>
+        <ul><li>Scalars, vectors, arithmetic</li><li>Dot product &amp; norms</li><li>Geometry of vectors</li></ul></span><span class="cpage">1</span></li>
+    <li><span class="cnum">2.</span><span class="ctitle"><a href="#ch2">Matrices &amp; Matrix Operations</a>
+        <ul><li>Matrix algebra</li><li>Matrix–vector products</li><li>Special matrices</li></ul></span><span class="cpage">8</span></li>
+    <li><span class="cnum">3.</span><span class="ctitle"><a href="#ch3">Systems of Linear Equations</a>
+        <ul><li>Row-echelon form</li><li>Gaussian elimination</li><li>Existence &amp; uniqueness</li></ul></span><span class="cpage">15</span></li>
+    <li><span class="cnum">4.</span><span class="ctitle"><a href="#ch4">Determinants &amp; Invertibility</a>
+        <ul><li>Cofactor expansion</li><li>Properties of determinants</li><li>Invertibility theorem</li></ul></span><span class="cpage">22</span></li>
+    <li><span class="cnum">5.</span><span class="ctitle"><a href="#ch5">Basis, Dimension &amp; Rank</a>
+        <ul><li>Linear independence</li><li>Four fundamental subspaces</li><li>Rank–nullity</li></ul></span><span class="cpage">28</span></li>
+    <li><span class="cnum">6.</span><span class="ctitle"><a href="#ch6">Linear Transformations</a>
+        <ul><li>Matrix of a transformation</li><li>Change of basis</li><li>Kernel &amp; image</li></ul></span><span class="cpage">35</span></li>
+    <li><span class="cnum">7.</span><span class="ctitle"><a href="#ch7">Orthogonality, Projections &amp; Least Squares</a>
+        <ul><li>Inner product &amp; orthogonality</li><li>Gram–Schmidt</li><li>Normal equations &amp; regression</li></ul></span><span class="cpage">42</span></li>
+    <li><span class="cnum">8.</span><span class="ctitle"><a href="#ch8">Eigenvalues &amp; Eigenvectors</a>
+        <ul><li>Characteristic polynomial</li><li>Diagonalisation</li><li>Symmetric matrices</li></ul></span><span class="cpage">50</span></li>
+    <li><span class="cnum">9.</span><span class="ctitle"><a href="#ch9">Singular Value Decomposition &amp; PCA</a>
+        <ul><li>The SVD theorem</li><li>Low-rank approximation</li><li>Principal Component Analysis</li></ul></span><span class="cpage">58</span></li>
+    <li><span class="cnum">10.</span><span class="ctitle"><a href="#ch10">Matrix Factorisations</a>
+        <ul><li>LU decomposition</li><li>QR decomposition</li><li>Cholesky decomposition</li></ul></span><span class="cpage">66</span></li>
+    <li><span class="cnum">11.</span><span class="ctitle"><a href="#ch11">Numerical Linear Algebra</a>
+        <ul><li>Conditioning &amp; stability</li><li>Sparse matrices</li><li>Iterative solvers</li></ul></span><span class="cpage">72</span></li>
+    <li><span class="cnum">12.</span><span class="ctitle"><a href="#ch12">Applications in Data Science</a>
+        <ul><li>Word embeddings &amp; PageRank</li><li>Recommender systems</li><li>Neural network internals</li></ul></span><span class="cpage">80</span></li>
+  </ol>
+  <h3 style="margin-top:1.2rem">End matter</h3>
+  <ol style="list-style:none;padding:0">
+    <li><span class="cnum">A.</span><span class="ctitle"><a href="#ans">Answer Key</a></span></li>
+    <li><span class="cnum">B.</span><span class="ctitle"><a href="#np">NumPy Cheatsheet</a></span></li>
+    <li><span class="cnum">C.</span><span class="ctitle"><a href="#glossary">Glossary</a></span></li>
+    <li><span class="cnum">D.</span><span class="ctitle"><a href="#refs">References &amp; Further Reading</a></span></li>
+  </ol>
+</section>
+
+<!-- =================== CH 1 =================== -->
+<section class="chapter" id="ch1">
+  <div class="chapter-header">
+    <div class="num">01</div>
+    <div class="title">
+      <div class="kicker">Chapter One · The building block</div>
+      <h2>Vectors &amp; Vector Spaces</h2>
+    </div>
+  </div>
+
+  <p>A <strong>vector</strong> is the simplest object in linear algebra — an ordered tuple of numbers. For a data scientist it is everything: a single row of a dataset, an image flattened into pixels, a document's TF–IDF representation, a gradient during training.</p>
+
+  <h3>1.1 Scalars, vectors, and arithmetic</h3>
+  <div class="callout definition">
+    <div class="label">Definition · Vector in $\mathbb{R}^n$</div>
+    A vector $\mathbf{v}\in\mathbb{R}^{n}$ is an ordered tuple $\mathbf{v}=(v_1,v_2,\dots,v_n)^{\top}$ where each $v_i\in\mathbb{R}$. We add vectors component-wise and scale them by a scalar $\alpha\in\mathbb{R}$:
+    $$\mathbf{u}+\mathbf{v}=(u_1+v_1,\dots,u_n+v_n)^{\top},\qquad \alpha\mathbf{v}=(\alpha v_1,\dots,\alpha v_n)^{\top}.$$
+  </div>
+
+  <p>Addition is commutative and associative, scaling distributes over addition, and the zero vector $\mathbf{0}$ is the identity. Together, these 8 axioms define a <em>vector space</em>.</p>
+
+  <h3>1.2 Dot product and norm</h3>
+  <p>The <strong>dot product</strong> measures how aligned two vectors are:</p>
+  <div class="eqn">$$\langle\mathbf{u},\mathbf{v}\rangle = \mathbf{u}^{\top}\mathbf{v} = \sum_{i=1}^{n} u_i v_i = \|\mathbf{u}\|\,\|\mathbf{v}\|\,\cos\theta.$$<span class="num">(1.1)</span></div>
+  <p>The <strong>Euclidean norm</strong> $\|\mathbf{v}\|=\sqrt{\langle\mathbf{v},\mathbf{v}\rangle}$ is its length. Two vectors are <em>orthogonal</em> when $\langle\mathbf{u},\mathbf{v}\rangle=0$ and <em>parallel</em> when $|\cos\theta|=1$.</p>
+
+  <h3>1.3 Geometry of vectors</h3>
+  <figure>
+    <svg viewBox="0 0 520 300" width="520" height="300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c10f1a"/></marker>
+        <marker id="ak1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#0a0a0a"/></marker>
+      </defs>
+      <!-- axes -->
+      <line x1="40"  y1="260" x2="480" y2="260" stroke="#0a0a0a" stroke-width="1"/>
+      <line x1="60"  y1="280" x2="60"  y2="20"  stroke="#0a0a0a" stroke-width="1"/>
+      <g font-family="Inter, sans-serif" font-size="11" fill="#6b6b6b">
+        <text x="470" y="275">x</text><text x="46"  y="26">y</text>
+        <text x="55"  y="275">0</text>
+      </g>
+      <!-- grid -->
+      <g stroke="#eee">
+        <line x1="140" y1="20" x2="140" y2="260"/><line x1="220" y1="20" x2="220" y2="260"/>
+        <line x1="300" y1="20" x2="300" y2="260"/><line x1="380" y1="20" x2="380" y2="260"/>
+        <line x1="60"  y1="200" x2="480" y2="200"/><line x1="60" y1="140" x2="480" y2="140"/>
+        <line x1="60"  y1="80"  x2="480" y2="80"/>
+      </g>
+      <!-- vectors u, v, u+v -->
+      <line x1="60" y1="260" x2="220" y2="140" stroke="#0a0a0a" stroke-width="2.5" marker-end="url(#ak1)"/>
+      <text x="130" y="190" font-family="Inter" font-size="13" fill="#0a0a0a" font-weight="700">u = (2, 2)</text>
+      <line x1="60" y1="260" x2="300" y2="200" stroke="#0a0a0a" stroke-width="2.5" marker-end="url(#ak1)" stroke-dasharray="5,3"/>
+      <text x="175" y="235" font-family="Inter" font-size="13" fill="#0a0a0a">v = (3, 1)</text>
+      <line x1="60" y1="260" x2="460" y2="80" stroke="#c10f1a" stroke-width="3" marker-end="url(#ar1)"/>
+      <text x="320" y="120" font-family="Inter" font-size="13" fill="#c10f1a" font-weight="700">u + v = (5, 3)</text>
+      <!-- parallelogram -->
+      <polyline points="220,140 460,80 300,200 60,260" fill="none" stroke="#c10f1a" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+    </svg>
+    <figcaption><strong>Figure 1.1</strong> Vector addition as the diagonal of a parallelogram.</figcaption>
+  </figure>
+
+  <h3>1.4 Worked example</h3>
+  <p>Let $\mathbf{u}=(2,2)^{\top}$ and $\mathbf{v}=(3,1)^{\top}$.</p>
+  <ul>
+    <li>$\mathbf{u}+\mathbf{v}=(5,3)^{\top}$.</li>
+    <li>$\langle\mathbf{u},\mathbf{v}\rangle = 2\cdot 3 + 2\cdot 1 = 8$.</li>
+    <li>$\|\mathbf{u}\|=\sqrt{8}\approx 2.83$, $\|\mathbf{v}\|=\sqrt{10}\approx 3.16$.</li>
+    <li>$\cos\theta = 8/(\sqrt{8}\sqrt{10}) \approx 0.894 \Rightarrow \theta\approx 26.6^{\circ}$.</li>
+  </ul>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    Cosine similarity in NLP, recommender systems, and image retrieval is literally $\cos\theta$ from equation (1.1). Every sentence-embedding API you have ever called computes vector dot products and norms under the hood.
+  </div>
+
+<pre><code class="language-python">import numpy as np
+u = np.array([2, 2]); v = np.array([3, 1])
+print(u + v)                    # [5 3]
+print(u @ v)                    # 8   (dot product)
+print(np.linalg.norm(u))        # 2.828...
+cos = (u @ v) / (np.linalg.norm(u) * np.linalg.norm(v))
+print(np.degrees(np.arccos(cos)))  # 26.56...</code></pre>
+
+  <div class="mcq" data-label="MCQ 1">
+    <p><strong>Q.</strong> Two vectors $\mathbf{u},\mathbf{v}\in\mathbb{R}^{3}$ satisfy $\|\mathbf{u}\|=3,\;\|\mathbf{v}\|=4$ and $\mathbf{u}\cdot\mathbf{v}=0$. What is $\|\mathbf{u}+\mathbf{v}\|$?</p>
+    <ol>
+      <li>$1$</li>
+      <li>$5$</li>
+      <li>$7$</li>
+      <li>$\sqrt{7}$</li>
+    </ol>
+    <div class="answer"><strong>Answer: B.</strong> Orthogonality gives $\|\mathbf{u}+\mathbf{v}\|^{2}=\|\mathbf{u}\|^{2}+\|\mathbf{v}\|^{2}=9+16=25$ (Pythagoras in $\mathbb{R}^{n}$).</div>
+  </div>
+
+  <div class="problem" data-label="Problem 1.1">
+    <p>Given $\mathbf{a}=(1,-2,2)^{\top}$ and $\mathbf{b}=(3,0,-4)^{\top}$, compute (i) $\mathbf{a}+\mathbf{b}$, (ii) $\mathbf{a}\cdot\mathbf{b}$, (iii) the angle $\theta$ between them, and (iv) a unit vector in the direction of $\mathbf{a}$.</p>
+  </div>
+  <div class="problem" data-label="Problem 1.2">
+    <p>A 3-feature data point is $\mathbf{x}=(0.5, -1.2, 3.0)^{\top}$ and a learned weight vector is $\mathbf{w}=(2,-1,0.5)^{\top}$. Compute the model's linear score $\mathbf{w}^{\top}\mathbf{x}+b$ for bias $b=-0.25$. State the predicted class if the decision rule is $\hat{y}=1$ when the score $>0$.</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Vectors add component-wise; scalars stretch them.</li>
+      <li>Dot product $= \|\mathbf{u}\|\|\mathbf{v}\|\cos\theta$; orthogonal iff zero.</li>
+      <li>Norm $=\sqrt{\mathbf{v}^{\top}\mathbf{v}}$; unit vector $\hat{\mathbf{v}}=\mathbf{v}/\|\mathbf{v}\|$.</li>
+      <li>Cosine similarity, linear model scores, and gradient steps are all dot products.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 2 =================== -->
+<section class="chapter" id="ch2">
+  <div class="chapter-header">
+    <div class="num">02</div>
+    <div class="title">
+      <div class="kicker">Chapter Two · Tables of numbers that compute</div>
+      <h2>Matrices &amp; Matrix Operations</h2>
+    </div>
+  </div>
+
+  <p>A <strong>matrix</strong> is a rectangular grid of numbers. For the data scientist, a dataset of $m$ samples with $n$ features is an $m\times n$ matrix $X$. Matrices are not just storage — they are <em>functions</em>: multiplying by a matrix transforms one vector space into another.</p>
+
+  <h3>2.1 Matrix algebra</h3>
+  <div class="callout definition">
+    <div class="label">Definition · $m\times n$ Matrix</div>
+    $A\in\mathbb{R}^{m\times n}$ is a grid with entries $a_{ij}$ ($i\in\{1..m\}$ rows, $j\in\{1..n\}$ columns). Addition and scaling are component-wise. The product $AB$ is defined when the inner dimensions match ($A$ is $m\times k$, $B$ is $k\times n$) and yields an $m\times n$ matrix with $(AB)_{ij}=\sum_{\ell=1}^{k}a_{i\ell}b_{\ell j}$.
+  </div>
+
+  <p>Matrix multiplication is <strong>associative</strong> ($A(BC)=(AB)C$), <strong>distributive</strong> over addition, but <strong>not commutative</strong>: $AB\neq BA$ in general.</p>
+
+  <h3>2.2 Matrix–vector multiplication, two views</h3>
+  <p>$A\mathbf{x}$ can be read two ways:</p>
+  <ol>
+    <li><strong>Row view.</strong> The $i$-th entry of $A\mathbf{x}$ is the dot product of row $i$ of $A$ with $\mathbf{x}$.</li>
+    <li><strong>Column view.</strong> $A\mathbf{x}=x_1\mathbf{a}_1+x_2\mathbf{a}_2+\dots+x_n\mathbf{a}_n$ — a linear combination of the columns of $A$. (This is the single most useful picture in linear algebra.)</li>
+  </ol>
+
+  <figure>
+    <svg viewBox="0 0 560 220" width="560" height="220" xmlns="http://www.w3.org/2000/svg">
+      <!-- matrix -->
+      <g font-family="JetBrains Mono, monospace" font-size="16">
+        <rect x="20" y="50" width="180" height="120" fill="#fff" stroke="#0a0a0a" stroke-width="2"/>
+        <text x="50"  y="90">1</text><text x="110" y="90">2</text><text x="170" y="90">0</text>
+        <text x="50"  y="130">0</text><text x="110" y="130">1</text><text x="170" y="130">3</text>
+        <text x="50"  y="170">2</text><text x="110" y="170">0</text><text x="170" y="170">1</text>
+        <!-- highlight column 2 in red -->
+        <rect x="95" y="55" width="30" height="110" fill="#c10f1a" opacity="0.18"/>
+      </g>
+      <text x="215" y="115" font-size="22">·</text>
+      <g font-family="JetBrains Mono, monospace" font-size="16">
+        <rect x="240" y="50" width="40" height="120" fill="#fff" stroke="#0a0a0a" stroke-width="2"/>
+        <text x="255" y="90">1</text><text x="255" y="130">2</text><text x="255" y="170">1</text>
+        <rect x="242" y="105" width="36" height="30" fill="#c10f1a" opacity="0.18"/>
+      </g>
+      <text x="300" y="115" font-size="22">=</text>
+      <g font-family="JetBrains Mono, monospace" font-size="16">
+        <rect x="330" y="50" width="40" height="120" fill="#fff" stroke="#c10f1a" stroke-width="2"/>
+        <text x="342" y="90">5</text><text x="342" y="130">5</text><text x="342" y="170">3</text>
+      </g>
+      <g font-family="Inter" font-size="12" fill="#6b6b6b">
+        <text x="20"  y="40">A</text>
+        <text x="240" y="40">x</text>
+        <text x="330" y="40">Ax</text>
+        <text x="120" y="200" fill="#c10f1a">column view: 1·a₁ + 2·a₂ + 1·a₃</text>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 2.1</strong> $A\mathbf{x}$ as a linear combination of columns of $A$.</figcaption>
+  </figure>
+
+  <h3>2.3 Special matrices</h3>
+  <table>
+    <thead><tr><th>Matrix</th><th>Definition</th><th>Why a data scientist cares</th></tr></thead>
+    <tbody>
+      <tr><td>Identity $I_n$</td><td>$I_{ij}=1$ if $i=j$, else $0$</td><td>Initialisation; "no-op"</td></tr>
+      <tr><td>Diagonal $D$</td><td>Only $d_{ii}\neq 0$</td><td>Feature scaling, SVD singular values</td></tr>
+      <tr><td>Symmetric $A=A^{\top}$</td><td>Mirror across the diagonal</td><td>Covariance, kernels, Hessians</td></tr>
+      <tr><td>Orthogonal $Q$</td><td>$Q^{\top}Q=I$</td><td>Rotations; numerical stability</td></tr>
+      <tr><td>Permutation $P$</td><td>Single 1 per row/col</td><td>Re-ordering rows/columns</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2.4 Transpose and inverse (preview)</h3>
+  <p>$(A^{\top})_{ij}=a_{ji}$. Useful identities: $(AB)^{\top}=B^{\top}A^{\top}$ and, when the inverse exists, $(AB)^{-1}=B^{-1}A^{-1}$. The inverse satisfies $A^{-1}A=AA^{-1}=I$ and is only defined for square, full-rank matrices — a subject we return to in Chapter 4.</p>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    In a neural network's dense layer <code>y = Wx + b</code>, $W$ is a matrix, $\mathbf{x}$ a batch of activations, and <em>training</em> means nudging the entries of $W$ in the direction of the negative gradient. Understanding how $W$ re-combines inputs is understanding what the layer <em>learns</em>.
+  </div>
+
+<pre><code class="language-python">import numpy as np
+A = np.array([[1, 2, 0],
+              [0, 1, 3],
+              [2, 0, 1]])
+x = np.array([1, 2, 1])
+print(A @ x)         # [5 5 3]
+print(A.T)           # transpose
+print(np.linalg.matrix_rank(A))  # 3 (full rank)</code></pre>
+
+  <div class="mcq" data-label="MCQ 2">
+    <p><strong>Q.</strong> If $A\in\mathbb{R}^{3\times 4}$ and $B\in\mathbb{R}^{4\times 2}$, which of the following is defined?</p>
+    <ol>
+      <li>$AB$ is $3\times 2$</li>
+      <li>$BA$ is $2\times 3$</li>
+      <li>$A+B$</li>
+      <li>$AB^{\top}$ is $3\times 4$</li>
+    </ol>
+    <div class="answer"><strong>Answer: A.</strong> Inner dimensions (4 and 4) match; the result inherits outer dimensions $3$ and $2$. $BA$ is not defined because $2\neq 3$. $A+B$ is not defined because shapes differ.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 2.1">
+    <p>Let $A=\begin{pmatrix}1&amp;2\\3&amp;4\end{pmatrix}$ and $B=\begin{pmatrix}0&amp;1\\1&amp;0\end{pmatrix}$. Compute $AB$, $BA$, and verify that $(AB)^{\top}=B^{\top}A^{\top}$.</p>
+  </div>
+  <div class="problem" data-label="Problem 2.2">
+    <p>A dataset $X\in\mathbb{R}^{1000\times 50}$ is mean-centred and multiplied by a weight matrix $W\in\mathbb{R}^{50\times 10}$ to produce logits $Z=XW$. What is the shape of $Z$? How many scalar multiplications does computing $Z$ take?</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Matrix $\times$ vector = linear combination of columns.</li>
+      <li>Inner dimensions must match for multiplication.</li>
+      <li>Not commutative, but associative and distributive.</li>
+      <li>Special shapes (diagonal, symmetric, orthogonal) appear everywhere in ML.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 3 =================== -->
+<section class="chapter" id="ch3">
+  <div class="chapter-header">
+    <div class="num">03</div>
+    <div class="title">
+      <div class="kicker">Chapter Three · Solving $A\mathbf{x}=\mathbf{b}$</div>
+      <h2>Systems of Linear Equations</h2>
+    </div>
+  </div>
+
+  <p>A linear system is a set of $m$ equations in $n$ unknowns. In matrix form it is $A\mathbf{x}=\mathbf{b}$. Three outcomes are possible: one unique solution, infinitely many, or none. Which case you are in depends entirely on how the columns of $A$ span the right-hand side $\mathbf{b}$.</p>
+
+  <h3>3.1 Row-echelon and reduced row-echelon form</h3>
+  <div class="callout definition">
+    <div class="label">Definition · Row Echelon Form (REF)</div>
+    A matrix is in <em>row echelon form</em> if: (i) all-zero rows are at the bottom, (ii) the leading (first non-zero) entry of each non-zero row — called a <strong>pivot</strong> — is to the right of the pivot in the row above. If, in addition, every pivot is $1$ and is the only non-zero entry in its column, the matrix is in <em>reduced row echelon form (RREF)</em>.
+  </div>
+
+  <h3>3.2 Gaussian elimination</h3>
+  <p>Three <em>elementary row operations</em> preserve the solution set: (1) swap two rows, (2) multiply a row by a non-zero scalar, (3) add a multiple of one row to another. Apply them to the augmented matrix $[A\,|\,\mathbf{b}]$ until REF/RREF is reached, then back-substitute.</p>
+
+  <figure>
+    <svg viewBox="0 0 600 170" width="600" height="170" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="JetBrains Mono" font-size="14">
+        <text x="10" y="30">┌                ┐</text>
+        <text x="10" y="55">│  1   2   1 │ 4 │</text>
+        <text x="10" y="80">│  2   5   3 │ 9 │</text>
+        <text x="10" y="105">│ -1   1   2 │ 5 │</text>
+        <text x="10" y="130">└                ┘</text>
+        <text x="230" y="85" font-size="20" fill="#c10f1a">⟶</text>
+        <text x="260" y="55">R2 ← R2 − 2R1</text>
+        <text x="260" y="75">R3 ← R3 + R1</text>
+        <text x="260" y="95" fill="#c10f1a">(make column 1 zero below pivot)</text>
+      </g>
+      <g font-family="JetBrains Mono" font-size="14">
+        <text x="460" y="30">┌                ┐</text>
+        <text x="460" y="55">│ 1  2  1  │  4 │</text>
+        <text x="460" y="80" fill="#c10f1a">│ 0  1  1  │  1 │</text>
+        <text x="460" y="105" fill="#c10f1a">│ 0  3  3  │  9 │</text>
+        <text x="460" y="130">└                ┘</text>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 3.1</strong> One elimination step: zero out the entries below the first pivot.</figcaption>
+  </figure>
+
+  <h3>3.3 Worked example</h3>
+  <p>Solve
+  $$\begin{aligned} x+2y+z&amp;=4\\ 2x+5y+3z&amp;=9\\ -x+y+2z&amp;=5.\end{aligned}$$
+  After $R_2\!\leftarrow\!R_2-2R_1$ and $R_3\!\leftarrow\!R_3+R_1$:
+  $$\begin{pmatrix}1&amp;2&amp;1 \\ 0&amp;1&amp;1 \\ 0&amp;3&amp;3\end{pmatrix}\mathbf{x}=\begin{pmatrix}4\\1\\9\end{pmatrix}.$$
+  Then $R_3\!\leftarrow\!R_3-3R_2$ gives a zero row with right-hand side $6$ — a contradiction, so the system is <strong>inconsistent</strong>. (If the RHS were $3$ instead we would have infinitely many solutions.)</p>
+
+  <h3>3.4 Existence and uniqueness</h3>
+  <table>
+    <thead><tr><th>Situation</th><th>Condition</th><th>Picture</th></tr></thead>
+    <tbody>
+      <tr><td>Unique solution</td><td>rank$(A)=$ rank$(A|\mathbf{b})=n$</td><td>Lines intersect at a single point</td></tr>
+      <tr><td>Infinitely many</td><td>rank$(A)=$ rank$(A|\mathbf{b})&lt; n$</td><td>Lines coincide / planes share a line</td></tr>
+      <tr><td>No solution</td><td>rank$(A)&lt;$ rank$(A|\mathbf{b})$</td><td>Parallel lines / skew planes</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    When a dataset has more features than samples ($n&gt;m$), the system $X\boldsymbol{\beta}=\mathbf{y}$ is typically underdetermined — infinitely many $\boldsymbol{\beta}$ fit. Regularisation (Ridge, Lasso) picks one specific solution by adding a constraint.
+  </div>
+
+<pre><code class="language-python">import numpy as np
+A = np.array([[1, 2, 1], [2, 5, 3], [-1, 1, 2]], float)
+b = np.array([4, 9, 5], float)
+# least-squares always returns *something*; check residual:
+x, residuals, rank, sv = np.linalg.lstsq(A, b, rcond=None)
+print(rank)        # < 3 would indicate deficiency
+print(np.linalg.matrix_rank(np.c_[A, b]))  # compare augmented rank</code></pre>
+
+  <div class="mcq" data-label="MCQ 3">
+    <p><strong>Q.</strong> A system $A\mathbf{x}=\mathbf{b}$ has rank$(A)=2$ and rank$([A|\mathbf{b}])=3$. Which is true?</p>
+    <ol>
+      <li>Unique solution</li>
+      <li>Infinitely many solutions</li>
+      <li>No solution</li>
+      <li>Cannot determine without $A$</li>
+    </ol>
+    <div class="answer"><strong>Answer: C.</strong> The augmented matrix has higher rank than $A$, so $\mathbf{b}$ is not in the column space of $A$ — the system is inconsistent.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 3.1">
+    <p>Solve by Gaussian elimination: $x+y-z=2,\;\;2x-y+z=3,\;\;x-2y+2z=1$.</p>
+  </div>
+  <div class="problem" data-label="Problem 3.2">
+    <p>For which values of $k$ does the system $x+y=1,\;\;2x+ky=2$ have (i) a unique solution, (ii) infinitely many, (iii) none?</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Elementary row operations never change the solution set.</li>
+      <li>Pivot positions tell you rank.</li>
+      <li>Rank of $A$ vs rank of $[A|\mathbf{b}]$ determines existence / uniqueness.</li>
+      <li>Underdetermined systems are the norm in high-dimensional ML.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 4 =================== -->
+<section class="chapter" id="ch4">
+  <div class="chapter-header">
+    <div class="num">04</div>
+    <div class="title">
+      <div class="kicker">Chapter Four · The number that reveals shape</div>
+      <h2>Determinants &amp; Invertibility</h2>
+    </div>
+  </div>
+
+  <p>The <strong>determinant</strong> $\det(A)$ of a square matrix is a single number that encodes how $A$ scales (signed) volume. When $\det(A)=0$, the matrix squashes space onto a lower dimension; it cannot be inverted. When $|\det(A)|$ is small but non-zero, inversion is still possible but numerically dangerous.</p>
+
+  <h3>4.1 $2\times 2$ and $3\times 3$ determinants</h3>
+  <p>For $A=\begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}$, $\det(A)=ad-bc$. For $3\times 3$, use the rule of Sarrus or cofactor expansion along any row/column:</p>
+  <div class="eqn">$$\det(A)=\sum_{j=1}^{n}(-1)^{i+j}a_{ij}M_{ij},$$<span class="num">(4.1)</span></div>
+  <p>where $M_{ij}$ is the minor obtained by deleting row $i$ and column $j$.</p>
+
+  <h3>4.2 Properties</h3>
+  <ul>
+    <li>$\det(I)=1$, $\det(A^{\top})=\det(A)$, $\det(AB)=\det(A)\det(B)$.</li>
+    <li>Swapping two rows changes the sign; scaling a row by $\alpha$ scales $\det$ by $\alpha$; adding a multiple of one row to another leaves $\det$ unchanged.</li>
+    <li>For triangular matrices, $\det$ is the product of diagonal entries.</li>
+  </ul>
+
+  <h3>4.3 Geometric meaning</h3>
+  <figure>
+    <svg viewBox="0 0 520 240" width="520" height="240" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#0a0a0a" stroke-width="1">
+        <line x1="40"  y1="200" x2="240" y2="200"/>
+        <line x1="40"  y1="40"  x2="40"  y2="220"/>
+      </g>
+      <!-- unit square -->
+      <rect x="40" y="120" width="80" height="80" fill="#0a0a0a" opacity="0.08" stroke="#0a0a0a"/>
+      <text x="60" y="165" font-family="Inter" font-size="12">area = 1</text>
+      <!-- transformed parallelogram -->
+      <g stroke="#c10f1a" stroke-width="1">
+        <line x1="300" y1="200" x2="500" y2="200"/>
+        <line x1="300" y1="40"  x2="300" y2="220"/>
+      </g>
+      <polygon points="300,200 420,120 500,60 380,140" fill="#c10f1a" opacity="0.15" stroke="#c10f1a"/>
+      <text x="370" y="150" font-family="Inter" font-size="12" fill="#c10f1a">area = |det A|</text>
+      <text x="135" y="230" font-family="Inter" font-size="13">unit square</text>
+      <text x="350" y="230" font-family="Inter" font-size="13" fill="#c10f1a">A · unit square</text>
+      <text x="245" y="120" font-family="Inter" font-size="22" fill="#c10f1a">⟶</text>
+      <text x="244" y="140" font-family="Inter" font-size="11" fill="#c10f1a">multiply by A</text>
+    </svg>
+    <figcaption><strong>Figure 4.1</strong> $|\det A|$ is the factor by which $A$ stretches area (volume in higher dimensions).</figcaption>
+  </figure>
+
+  <h3>4.4 The Invertibility Theorem</h3>
+  <div class="callout definition">
+    <div class="label">Theorem · Equivalent conditions for invertibility</div>
+    For a square matrix $A\in\mathbb{R}^{n\times n}$, the following are all equivalent:
+    <ol>
+      <li>$A$ is invertible (i.e., $A^{-1}$ exists).</li>
+      <li>$\det(A)\neq 0$.</li>
+      <li>rank$(A)=n$ (columns are linearly independent).</li>
+      <li>$A\mathbf{x}=\mathbf{0}$ only when $\mathbf{x}=\mathbf{0}$.</li>
+      <li>$A\mathbf{x}=\mathbf{b}$ has a unique solution for every $\mathbf{b}$.</li>
+      <li>$0$ is not an eigenvalue of $A$.</li>
+    </ol>
+  </div>
+
+  <p>If $A^{-1}$ exists, Cramer's formula gives $\mathbf{x}=A^{-1}\mathbf{b}$, but in practice you should almost never compute $A^{-1}$ directly — solve the linear system instead (Chapter 10).</p>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    A covariance matrix $\Sigma$ is singular when features are linearly dependent — a classic cause of the "singular matrix" error when fitting linear regression without regularisation. Ridge regression adds $\lambda I$ to guarantee invertibility: $(X^{\top}X+\lambda I)^{-1}$.
+  </div>
+
+<pre><code class="language-python">A = np.array([[1, 2], [3, 4]], float)
+print(np.linalg.det(A))        # -2.0
+print(np.linalg.inv(A))        # [[-2,  1], [ 1.5, -0.5]]
+# Prefer solve() over inv() for Ax=b:
+b = np.array([5, 11])
+print(np.linalg.solve(A, b))   # [1, 2]</code></pre>
+
+  <div class="mcq" data-label="MCQ 4">
+    <p><strong>Q.</strong> If $A\in\mathbb{R}^{n\times n}$ and $\det(A)=0$, which statement must be true?</p>
+    <ol>
+      <li>$A$ has at least one zero row.</li>
+      <li>The columns of $A$ are linearly dependent.</li>
+      <li>$A$ is the zero matrix.</li>
+      <li>$A=A^{\top}$.</li>
+    </ol>
+    <div class="answer"><strong>Answer: B.</strong> A zero determinant is equivalent to rank-deficiency, which is equivalent to the columns being linearly dependent. (A) and (C) are too strong; (D) is unrelated.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 4.1">
+    <p>Compute $\det\begin{pmatrix}2&amp;1&amp;3\\0&amp;-1&amp;4\\1&amp;2&amp;0\end{pmatrix}$ by cofactor expansion along the first column.</p>
+  </div>
+  <div class="problem" data-label="Problem 4.2">
+    <p>Find all values of $\lambda$ for which the matrix $A-\lambda I$ is singular, where $A=\begin{pmatrix}3&amp;1\\0&amp;2\end{pmatrix}$. (Preview of eigenvalues!)</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>$\det(A)=0\Leftrightarrow A$ is not invertible $\Leftrightarrow$ columns dependent.</li>
+      <li>Determinants multiply: $\det(AB)=\det(A)\det(B)$.</li>
+      <li>Geometrically $|\det A|$ is a volume scale factor.</li>
+      <li>Never compute $A^{-1}$ in practice — solve the system instead.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 5 =================== -->
+<section class="chapter" id="ch5">
+  <div class="chapter-header">
+    <div class="num">05</div>
+    <div class="title">
+      <div class="kicker">Chapter Five · Structure of solutions</div>
+      <h2>Basis, Dimension &amp; Rank</h2>
+    </div>
+  </div>
+
+  <p>Every matrix defines four natural subspaces. Understanding them explains <em>why</em> a regression model has a unique solution, <em>when</em> a least-squares fit exists, and <em>where</em> redundant features hide.</p>
+
+  <h3>5.1 Linear independence and span</h3>
+  <div class="callout definition">
+    <div class="label">Definition · Linear independence</div>
+    Vectors $\mathbf{v}_1,\dots,\mathbf{v}_k$ are <em>linearly independent</em> if $c_1\mathbf{v}_1+\dots+c_k\mathbf{v}_k=\mathbf{0}$ implies $c_1=\dots=c_k=0$. Their <em>span</em> is the set of all linear combinations — a subspace of $\mathbb{R}^{n}$.
+  </div>
+
+  <h3>5.2 Basis and dimension</h3>
+  <p>A <strong>basis</strong> of a subspace is an independent spanning set. Every vector in the subspace has a unique expansion in that basis. The number of basis vectors is the <strong>dimension</strong> — an intrinsic property that does not depend on which basis you pick.</p>
+
+  <h3>5.3 The four fundamental subspaces</h3>
+  <figure>
+    <svg viewBox="0 0 560 260" width="560" height="260" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="Inter" font-size="13">
+        <!-- ℝⁿ side -->
+        <rect x="20" y="20" width="230" height="220" fill="#fff" stroke="#0a0a0a"/>
+        <text x="110" y="40" font-weight="700">ℝⁿ (input)</text>
+        <ellipse cx="135" cy="120" rx="90" ry="40" fill="#c10f1a" opacity="0.18" stroke="#c10f1a"/>
+        <text x="95" y="125" fill="#c10f1a" font-weight="700">Row space</text>
+        <ellipse cx="135" cy="200" rx="70" ry="25" fill="#0a0a0a" opacity="0.1" stroke="#0a0a0a"/>
+        <text x="95" y="205">Null space</text>
+        <text x="40" y="250" fill="#6b6b6b" font-size="11">dim = r + (n−r)</text>
+
+        <!-- arrow -->
+        <text x="265" y="140" font-size="22" fill="#c10f1a">⟶</text>
+        <text x="263" y="155" font-size="11" fill="#c10f1a">A</text>
+
+        <!-- ℝᵐ side -->
+        <rect x="310" y="20" width="230" height="220" fill="#fff" stroke="#0a0a0a"/>
+        <text x="400" y="40" font-weight="700">ℝᵐ (output)</text>
+        <ellipse cx="425" cy="120" rx="90" ry="40" fill="#c10f1a" opacity="0.18" stroke="#c10f1a"/>
+        <text x="375" y="125" fill="#c10f1a" font-weight="700">Column space</text>
+        <ellipse cx="425" cy="200" rx="70" ry="25" fill="#0a0a0a" opacity="0.1" stroke="#0a0a0a"/>
+        <text x="370" y="205">Left null space</text>
+        <text x="330" y="250" fill="#6b6b6b" font-size="11">dim = r + (m−r)</text>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 5.1</strong> The four fundamental subspaces, with $r=$ rank$(A)$.</figcaption>
+  </figure>
+
+  <table>
+    <thead><tr><th>Subspace</th><th>Definition</th><th>Lives in</th><th>Dimension</th></tr></thead>
+    <tbody>
+      <tr><td>Column space $C(A)$</td><td>span of columns</td><td>$\mathbb{R}^{m}$</td><td>$r$</td></tr>
+      <tr><td>Null space $N(A)$</td><td>$\{\mathbf{x}:A\mathbf{x}=\mathbf{0}\}$</td><td>$\mathbb{R}^{n}$</td><td>$n-r$</td></tr>
+      <tr><td>Row space $C(A^{\top})$</td><td>span of rows</td><td>$\mathbb{R}^{n}$</td><td>$r$</td></tr>
+      <tr><td>Left null space $N(A^{\top})$</td><td>$\{\mathbf{y}:A^{\top}\mathbf{y}=\mathbf{0}\}$</td><td>$\mathbb{R}^{m}$</td><td>$m-r$</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout definition">
+    <div class="label">Theorem · Rank–Nullity</div>
+    For $A\in\mathbb{R}^{m\times n}$, $\;\text{rank}(A)+\dim N(A)=n$.
+  </div>
+
+  <h3>5.4 Worked example</h3>
+  <p>Let $A=\begin{pmatrix}1&amp;2&amp;3\\2&amp;4&amp;6\end{pmatrix}$. Row reducing gives a single pivot, so rank$=1$. The null space is $\{(x,y,z):x+2y+3z=0\}$, two-dimensional (a plane). Check: $1+2=3=n$.</p>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    In a design matrix $X$, perfectly collinear features (e.g., temperature in °C and °F) live in the row space and make rank$(X)&lt; n$. Their coefficient vector lies in the null space — no unique least-squares solution. Dropping one of the collinear features is the cleanest fix.
+  </div>
+
+<pre><code class="language-python">A = np.array([[1,2,3],[2,4,6]], float)
+print(np.linalg.matrix_rank(A))      # 1
+# Null space via SVD:
+U, S, Vt = np.linalg.svd(A)
+ns = Vt[A.shape[0]:].T                # columns span N(A)
+print(ns.shape, "  A @ ns ≈", np.allclose(A @ ns, 0))</code></pre>
+
+  <div class="mcq" data-label="MCQ 5">
+    <p><strong>Q.</strong> $A\in\mathbb{R}^{5\times 7}$ has rank $4$. What is $\dim N(A)$?</p>
+    <ol><li>$1$</li><li>$3$</li><li>$4$</li><li>$7$</li></ol>
+    <div class="answer"><strong>Answer: B.</strong> By rank–nullity, $\dim N(A)=n-r=7-4=3$.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 5.1">
+    <p>Find a basis for the column space and null space of $A=\begin{pmatrix}1&amp;0&amp;1\\0&amp;1&amp;1\\1&amp;1&amp;2\end{pmatrix}$.</p>
+  </div>
+  <div class="problem" data-label="Problem 5.2">
+    <p>Show that if $\mathbf{v}\in N(A)$ and $\mathbf{u}\in C(A^{\top})$, then $\mathbf{u}^{\top}\mathbf{v}=0$.</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Rank = pivots = dimension of row / column space.</li>
+      <li>Rank–nullity: columns minus pivots $=$ nullity.</li>
+      <li>Null space $\perp$ row space; left null $\perp$ column space.</li>
+      <li>Linear dependence among features = non-trivial null space.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 6 =================== -->
+<section class="chapter" id="ch6">
+  <div class="chapter-header">
+    <div class="num">06</div>
+    <div class="title">
+      <div class="kicker">Chapter Six · Matrices as functions</div>
+      <h2>Linear Transformations</h2>
+    </div>
+  </div>
+
+  <p>A <strong>linear transformation</strong> $T:\mathbb{R}^{n}\to\mathbb{R}^{m}$ satisfies $T(\alpha\mathbf{u}+\beta\mathbf{v})=\alpha T(\mathbf{u})+\beta T(\mathbf{v})$. Once you fix bases, every linear transformation is captured by a unique matrix.</p>
+
+  <h3>6.1 The matrix of a transformation</h3>
+  <p>If $T(\mathbf{e}_j)=\mathbf{a}_j$ for the $j$-th standard basis vector, then $T(\mathbf{x})=A\mathbf{x}$ with $A=[\mathbf{a}_1\,|\,\mathbf{a}_2\,|\,\dots\,|\,\mathbf{a}_n]$. So: <em>apply $T$ to each basis vector and stack the results as columns.</em></p>
+
+  <h3>6.2 Gallery of 2-D linear maps</h3>
+  <figure>
+    <svg viewBox="0 0 600 180" width="600" height="180" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="Inter" font-size="12" text-anchor="middle">
+        <!-- original -->
+        <g transform="translate(30,30)">
+          <rect x="0" y="0" width="60" height="60" fill="#fff" stroke="#0a0a0a"/>
+          <text x="30" y="110">Original</text>
+        </g>
+        <!-- scaling -->
+        <g transform="translate(130,30)">
+          <rect x="0" y="0" width="80" height="40" fill="#c10f1a" opacity="0.2" stroke="#c10f1a"/>
+          <text x="40" y="110">Scale (diagonal)</text>
+        </g>
+        <!-- rotation -->
+        <g transform="translate(245,30)">
+          <polygon points="40,0 80,40 40,80 0,40" fill="#c10f1a" opacity="0.2" stroke="#c10f1a"/>
+          <text x="40" y="110">Rotation (orthogonal)</text>
+        </g>
+        <!-- shear -->
+        <g transform="translate(355,30)">
+          <polygon points="20,0 80,0 60,60 0,60" fill="#c10f1a" opacity="0.2" stroke="#c10f1a"/>
+          <text x="40" y="110">Shear</text>
+        </g>
+        <!-- projection -->
+        <g transform="translate(465,30)">
+          <line x1="0" y1="60" x2="80" y2="60" stroke="#c10f1a" stroke-width="3"/>
+          <rect x="0" y="0" width="60" height="60" fill="none" stroke="#0a0a0a" stroke-dasharray="2,2"/>
+          <text x="40" y="110">Projection (rank 1)</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 6.1</strong> Linear transformations preserve straight lines and the origin.</figcaption>
+  </figure>
+
+  <p>Common 2-D matrices:</p>
+  <div class="eqn">$$R_{\theta}=\begin{pmatrix}\cos\theta&amp;-\sin\theta\\ \sin\theta&amp;\cos\theta\end{pmatrix},\quad S_{a,b}=\begin{pmatrix}a&amp;0\\0&amp;b\end{pmatrix},\quad H_{k}=\begin{pmatrix}1&amp;k\\0&amp;1\end{pmatrix}.$$</div>
+
+  <h3>6.3 Composition and change of basis</h3>
+  <p>If $T=T_1\circ T_2$ then the matrix of $T$ is the product of matrices in the <em>same order</em>: $A=A_1A_2$. Given a new basis $B$, the matrix of $T$ in that basis is $[T]_B=P^{-1}AP$ where $P$ is the change-of-basis matrix with $B$'s vectors as columns. We will see $P^{-1}AP$ again in Chapter 8 — it is the essence of diagonalisation.</p>
+
+  <h3>6.4 Kernel and image</h3>
+  <p>$\ker(T)=\{\mathbf{x}:T(\mathbf{x})=\mathbf{0}\}=N(A)$ and $\text{im}(T)=C(A)$. $T$ is <em>injective</em> iff $\ker(T)=\{\mathbf{0}\}$, <em>surjective</em> iff $\text{im}(T)=\mathbb{R}^{m}$, and <em>invertible</em> iff both, which forces $m=n$.</p>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    A dense layer $W$ is a linear transformation; a non-linear activation $\sigma$ is what lets a neural network escape pure linearity. Without $\sigma$, a 100-layer MLP would collapse into a single matrix $W=W_{100}\cdots W_1$ — no more expressive than a one-layer linear model.
+  </div>
+
+<pre><code class="language-python">theta = np.deg2rad(30)
+R = np.array([[np.cos(theta), -np.sin(theta)],
+              [np.sin(theta),  np.cos(theta)]])
+S = np.diag([2.0, 0.5])
+T = R @ S                   # first scale, then rotate
+print(T @ np.array([1, 0])) # image of e1</code></pre>
+
+  <div class="mcq" data-label="MCQ 6">
+    <p><strong>Q.</strong> Which of these functions is <em>not</em> a linear transformation?</p>
+    <ol>
+      <li>$T(\mathbf{x})=A\mathbf{x}$ with $A\in\mathbb{R}^{m\times n}$</li>
+      <li>$T(\mathbf{x})=2\mathbf{x}$</li>
+      <li>$T(\mathbf{x})=A\mathbf{x}+\mathbf{b}$ with fixed $\mathbf{b}\neq\mathbf{0}$</li>
+      <li>$T(\mathbf{x})=0$</li>
+    </ol>
+    <div class="answer"><strong>Answer: C.</strong> Affine maps fail the zero-preservation test: $T(\mathbf{0})=\mathbf{b}\neq\mathbf{0}$. (A), (B), (D) are all linear.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 6.1">
+    <p>Write the $2\times 2$ matrix of the transformation that first rotates by $90^{\circ}$ counter-clockwise and then reflects across the $y$-axis. Apply it to $(1,0)^{\top}$.</p>
+  </div>
+  <div class="problem" data-label="Problem 6.2">
+    <p>Let $T:\mathbb{R}^{3}\to\mathbb{R}^{2}$ be $T(x,y,z)=(x+y,\,y-z)$. Write its matrix and describe $\ker(T)$ and $\text{im}(T)$.</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Linear $\Leftrightarrow$ respects addition and scaling; fixes origin.</li>
+      <li>The matrix of $T$ has $T(\mathbf{e}_j)$ as its $j$-th column.</li>
+      <li>Composition $\leftrightarrow$ matrix product (order matters).</li>
+      <li>Kernel = null space, image = column space.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 7 =================== -->
+<section class="chapter" id="ch7">
+  <div class="chapter-header">
+    <div class="num">07</div>
+    <div class="title">
+      <div class="kicker">Chapter Seven · From geometry to regression</div>
+      <h2>Orthogonality, Projections &amp; Least Squares</h2>
+    </div>
+  </div>
+
+  <p>Linear regression is the single most-used model in data science, and it is <em>projection</em> in disguise. When $A\boldsymbol{\beta}=\mathbf{y}$ has no exact solution, we instead find the $\boldsymbol{\beta}$ whose prediction $A\boldsymbol{\beta}$ is the closest point to $\mathbf{y}$ inside the column space of $A$ — the orthogonal projection.</p>
+
+  <h3>7.1 Orthogonal sets &amp; Gram–Schmidt</h3>
+  <p>A set $\{\mathbf{q}_1,\dots,\mathbf{q}_k\}$ is <em>orthonormal</em> if $\langle\mathbf{q}_i,\mathbf{q}_j\rangle=\delta_{ij}$. Any independent set can be <strong>orthonormalised</strong>:</p>
+  <div class="eqn">$$\mathbf{u}_k=\mathbf{v}_k-\sum_{j&lt;k}\langle\mathbf{v}_k,\mathbf{q}_j\rangle\mathbf{q}_j,\qquad \mathbf{q}_k=\mathbf{u}_k/\|\mathbf{u}_k\|.$$</div>
+
+  <h3>7.2 Orthogonal projection</h3>
+  <figure>
+    <svg viewBox="0 0 520 240" width="520" height="240" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="p1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c10f1a"/></marker>
+        <marker id="p2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#0a0a0a"/></marker>
+      </defs>
+      <!-- subspace plane (line) -->
+      <line x1="40" y1="180" x2="480" y2="180" stroke="#0a0a0a" stroke-width="2"/>
+      <text x="440" y="200" font-family="Inter" font-size="12">col(A)</text>
+      <!-- y vector -->
+      <line x1="100" y1="180" x2="320" y2="60" stroke="#c10f1a" stroke-width="3" marker-end="url(#p1)"/>
+      <text x="220" y="100" font-family="Inter" font-size="14" fill="#c10f1a" font-weight="700">y</text>
+      <!-- projection -->
+      <line x1="100" y1="180" x2="320" y2="180" stroke="#0a0a0a" stroke-width="2.5" marker-end="url(#p2)"/>
+      <text x="200" y="200" font-family="Inter" font-size="14">ŷ = A β̂ = Py</text>
+      <!-- residual -->
+      <line x1="320" y1="180" x2="320" y2="60" stroke="#c10f1a" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#p1)"/>
+      <text x="330" y="120" font-family="Inter" font-size="13" fill="#c10f1a">residual y − ŷ</text>
+      <!-- right angle -->
+      <polyline points="310,180 310,170 320,170" fill="none" stroke="#0a0a0a"/>
+    </svg>
+    <figcaption><strong>Figure 7.1</strong> Orthogonal projection — the residual is perpendicular to the column space.</figcaption>
+  </figure>
+
+  <p>If the columns of $A$ are independent, the projection of $\mathbf{y}$ onto $C(A)$ is</p>
+  <div class="eqn">$$P=A(A^{\top}A)^{-1}A^{\top},\qquad \hat{\mathbf{y}}=P\mathbf{y}.$$<span class="num">(7.1)</span></div>
+  <p>$P$ satisfies $P=P^{\top}$ and $P^{2}=P$ — it is idempotent and symmetric.</p>
+
+  <h3>7.3 The normal equations (linear regression)</h3>
+  <div class="callout definition">
+    <div class="label">Theorem · Least squares</div>
+    The $\boldsymbol{\beta}$ that minimises $\|\mathbf{y}-A\boldsymbol{\beta}\|^{2}$ satisfies the <em>normal equations</em>
+    $$A^{\top}A\,\boldsymbol{\beta}=A^{\top}\mathbf{y}.$$
+    If $A$ has full column rank, the unique solution is $\boldsymbol{\beta}=(A^{\top}A)^{-1}A^{\top}\mathbf{y}$.
+  </div>
+
+  <h3>7.4 Worked example</h3>
+  <p>Fit $y=\beta_0+\beta_1 x$ to the points $(1,1),(2,2),(3,2)$.</p>
+  <p>$A=\begin{pmatrix}1&amp;1\\1&amp;2\\1&amp;3\end{pmatrix},\;\mathbf{y}=\begin{pmatrix}1\\2\\2\end{pmatrix}.$ Then $A^{\top}A=\begin{pmatrix}3&amp;6\\6&amp;14\end{pmatrix}$, $A^{\top}\mathbf{y}=\begin{pmatrix}5\\11\end{pmatrix}.$ Solving gives $\hat{\boldsymbol{\beta}}=(2/3,\,1/2)^{\top}$, so $\hat y = 2/3 + x/2$.</p>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    Scikit-learn's <code>LinearRegression().fit()</code> solves exactly equation (7.1) under the hood (usually via QR or SVD, not by literally inverting $A^{\top}A$ — see Chapters 10–11). Ridge: $(A^{\top}A+\lambda I)\boldsymbol{\beta}=A^{\top}\mathbf{y}$.
+  </div>
+
+<pre><code class="language-python">X = np.array([[1,1],[1,2],[1,3]], float)
+y = np.array([1,2,2], float)
+beta, *_ = np.linalg.lstsq(X, y, rcond=None)
+print(beta)                # [0.666..., 0.5]
+y_hat = X @ beta
+residual = y - y_hat
+print(X.T @ residual)      # ≈ 0 (orthogonality)</code></pre>
+
+  <div class="mcq" data-label="MCQ 7">
+    <p><strong>Q.</strong> Which property is <em>not</em> true of a projection matrix $P=A(A^{\top}A)^{-1}A^{\top}$?</p>
+    <ol>
+      <li>$P^{2}=P$</li>
+      <li>$P^{\top}=P$</li>
+      <li>$P$ is invertible</li>
+      <li>$P\mathbf{y}$ is the closest point in $C(A)$ to $\mathbf{y}$</li>
+    </ol>
+    <div class="answer"><strong>Answer: C.</strong> A non-trivial projection has rank $&lt;n$ (it squashes the component orthogonal to $C(A)$ to zero), so it is not invertible.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 7.1">
+    <p>Given $A=\begin{pmatrix}1&amp;0\\1&amp;1\\1&amp;2\end{pmatrix}$ and $\mathbf{y}=(6,0,0)^{\top}$, find the least-squares $\boldsymbol{\beta}$ and verify that the residual is orthogonal to every column of $A$.</p>
+  </div>
+  <div class="problem" data-label="Problem 7.2">
+    <p>Apply Gram–Schmidt to $\mathbf{v}_1=(1,1,0)^{\top},\,\mathbf{v}_2=(1,0,1)^{\top}$ to obtain an orthonormal basis for their span.</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Projection = closest point in a subspace; residual $\perp$ subspace.</li>
+      <li>Normal equations $A^{\top}A\boldsymbol{\beta}=A^{\top}\mathbf{y}$ = OLS regression.</li>
+      <li>Gram–Schmidt builds orthonormal bases.</li>
+      <li>Ridge adds $\lambda I$ to stabilise $A^{\top}A$.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 8 =================== -->
+<section class="chapter" id="ch8">
+  <div class="chapter-header">
+    <div class="num">08</div>
+    <div class="title">
+      <div class="kicker">Chapter Eight · Hidden axes of a matrix</div>
+      <h2>Eigenvalues &amp; Eigenvectors</h2>
+    </div>
+  </div>
+
+  <p>Some vectors are stretched but <em>not rotated</em> by a matrix; they are its <strong>eigenvectors</strong>, and the stretch factors are the <strong>eigenvalues</strong>. These hidden axes diagonalise the matrix and reveal its long-run behaviour.</p>
+
+  <div class="callout definition">
+    <div class="label">Definition · Eigenvalue / Eigenvector</div>
+    A non-zero $\mathbf{v}\in\mathbb{R}^{n}$ is an eigenvector of $A$ with eigenvalue $\lambda$ if $A\mathbf{v}=\lambda\mathbf{v}$. Equivalently, $(A-\lambda I)\mathbf{v}=\mathbf{0}$, so $\det(A-\lambda I)=0$.
+  </div>
+
+  <h3>8.1 The characteristic polynomial</h3>
+  <p>$p_A(\lambda)=\det(A-\lambda I)$ is a polynomial of degree $n$. Its roots are the eigenvalues. Eigenvectors are found by solving $(A-\lambda I)\mathbf{v}=\mathbf{0}$.</p>
+
+  <h3>8.2 Diagonalisation</h3>
+  <figure>
+    <svg viewBox="0 0 560 220" width="560" height="220" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="e1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#c10f1a"/></marker>
+        <marker id="e2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#0a0a0a"/></marker>
+      </defs>
+      <g stroke="#eee"><line x1="40" y1="20" x2="40" y2="200"/><line x1="40" y1="110" x2="520" y2="110"/></g>
+      <line x1="40" y1="110" x2="150" y2="50" stroke="#0a0a0a" stroke-width="2" marker-end="url(#e2)"/>
+      <text x="155" y="50" font-family="Inter" font-size="12">v₁</text>
+      <line x1="40" y1="110" x2="270" y2="15" stroke="#c10f1a" stroke-width="3" marker-end="url(#e1)"/>
+      <text x="275" y="18" font-family="Inter" font-size="12" fill="#c10f1a">Av₁ = 2·v₁</text>
+
+      <line x1="40" y1="110" x2="120" y2="180" stroke="#0a0a0a" stroke-width="2" marker-end="url(#e2)"/>
+      <text x="125" y="190" font-family="Inter" font-size="12">v₂</text>
+      <line x1="40" y1="110" x2="75" y2="143" stroke="#c10f1a" stroke-width="3" marker-end="url(#e1)"/>
+      <text x="80" y="160" font-family="Inter" font-size="12" fill="#c10f1a">Av₂ = 0.5·v₂</text>
+
+      <text x="300" y="180" font-family="Inter" font-size="13">Eigenvectors keep direction; only scale.</text>
+    </svg>
+    <figcaption><strong>Figure 8.1</strong> Eigenvectors of $A$ are directions in which $A$ acts as pure scaling.</figcaption>
+  </figure>
+
+  <p>If $A$ has $n$ independent eigenvectors $\mathbf{v}_1,\dots,\mathbf{v}_n$, stacking them as columns of $V$ gives</p>
+  <div class="eqn">$$A=V\Lambda V^{-1},\quad \Lambda=\text{diag}(\lambda_1,\dots,\lambda_n).$$</div>
+  <p>Then $A^{k}=V\Lambda^{k}V^{-1}$, which is why eigendecomposition diagonalises powers of matrices (Markov chains, PageRank, recurrences).</p>
+
+  <h3>8.3 Symmetric matrices — the best case</h3>
+  <div class="callout definition">
+    <div class="label">Spectral Theorem</div>
+    Every real symmetric matrix $A=A^{\top}$ has real eigenvalues and an orthonormal basis of eigenvectors. It can be written $A=Q\Lambda Q^{\top}$ with $Q$ orthogonal.
+  </div>
+  <p>This is why covariance matrices, kernel matrices, and Hessians — all symmetric — are so well-behaved.</p>
+
+  <h3>8.4 Worked example</h3>
+  <p>$A=\begin{pmatrix}4&amp;1\\2&amp;3\end{pmatrix}$. $\det(A-\lambda I)=(4-\lambda)(3-\lambda)-2=\lambda^{2}-7\lambda+10=(\lambda-5)(\lambda-2)$. Eigenvalues $5,2$. For $\lambda=5$: $(A-5I)\mathbf{v}=\mathbf{0}\Rightarrow \mathbf{v}=(1,1)^{\top}$. For $\lambda=2$: $\mathbf{v}=(1,-2)^{\top}$.</p>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    The power method — repeatedly applying $A$ to a random vector and normalising — converges to the top eigenvector. That is exactly how Google's original PageRank was computed on the web's hyperlink matrix.
+  </div>
+
+<pre><code class="language-python">A = np.array([[4,1],[2,3]], float)
+vals, vecs = np.linalg.eig(A)
+print(vals)                 # [5. 2.]
+# Verify A v = λ v:
+for λ, v in zip(vals, vecs.T):
+    print(np.allclose(A @ v, λ * v))</code></pre>
+
+  <div class="mcq" data-label="MCQ 8">
+    <p><strong>Q.</strong> If $A$ is $n\times n$ and $\lambda$ is an eigenvalue of $A$, which is always an eigenvalue of $A^{2}$?</p>
+    <ol><li>$\lambda+1$</li><li>$\lambda^{2}$</li><li>$2\lambda$</li><li>$1/\lambda$</li></ol>
+    <div class="answer"><strong>Answer: B.</strong> If $A\mathbf{v}=\lambda\mathbf{v}$ then $A^{2}\mathbf{v}=A(\lambda\mathbf{v})=\lambda A\mathbf{v}=\lambda^{2}\mathbf{v}$.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 8.1">
+    <p>Find all eigenvalues and a basis of eigenvectors for $A=\begin{pmatrix}2&amp;1\\1&amp;2\end{pmatrix}$. Verify the spectral theorem by checking orthogonality.</p>
+  </div>
+  <div class="problem" data-label="Problem 8.2">
+    <p>Let $A=\begin{pmatrix}0.9&amp;0.2\\0.1&amp;0.8\end{pmatrix}$ be a Markov transition matrix. Show that $\lambda=1$ is an eigenvalue and find its eigenvector — this is the stationary distribution.</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Eigenvectors = directions left invariant by $A$.</li>
+      <li>Diagonalisation $A=V\Lambda V^{-1}$ makes powers easy.</li>
+      <li>Symmetric $\Rightarrow$ real eigenvalues + orthonormal eigenvectors.</li>
+      <li>Power iteration $\Rightarrow$ dominant eigenvector (PageRank, PCA).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 9 =================== -->
+<section class="chapter" id="ch9">
+  <div class="chapter-header">
+    <div class="num">09</div>
+    <div class="title">
+      <div class="kicker">Chapter Nine · The Swiss-army knife</div>
+      <h2>SVD &amp; Principal Component Analysis</h2>
+    </div>
+  </div>
+
+  <p>The <strong>singular value decomposition</strong> works for <em>every</em> matrix — rectangular, rank-deficient, noisy. It is the most important factorisation in applied mathematics and the mathematical backbone of PCA, latent-semantic analysis, collaborative filtering, and modern matrix completion.</p>
+
+  <div class="callout definition">
+    <div class="label">Theorem · SVD</div>
+    Every $A\in\mathbb{R}^{m\times n}$ can be written
+    $$A=U\Sigma V^{\top},$$
+    with $U\in\mathbb{R}^{m\times m}$ orthogonal, $V\in\mathbb{R}^{n\times n}$ orthogonal, and $\Sigma\in\mathbb{R}^{m\times n}$ diagonal with non-negative singular values $\sigma_1\geq\sigma_2\geq\dots\geq 0$.
+  </div>
+
+  <h3>9.1 Intuition</h3>
+  <figure>
+    <svg viewBox="0 0 620 200" width="620" height="200" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="Inter" font-size="12" text-anchor="middle">
+        <circle cx="70" cy="100" r="40" fill="none" stroke="#0a0a0a"/>
+        <line x1="30" y1="100" x2="110" y2="100" stroke="#0a0a0a" stroke-dasharray="3,2"/>
+        <line x1="70" y1="60"  x2="70"  y2="140" stroke="#0a0a0a" stroke-dasharray="3,2"/>
+        <text x="70" y="165">unit ball</text>
+        <text x="145" y="95" fill="#c10f1a" font-size="18">V⊤</text>
+        <text x="145" y="112" font-size="10">rotate</text>
+        <circle cx="220" cy="100" r="40" fill="none" stroke="#0a0a0a"/>
+        <line x1="184" y1="115" x2="256" y2="85" stroke="#c10f1a" stroke-dasharray="3,2"/>
+        <text x="295" y="95" fill="#c10f1a" font-size="18">Σ</text>
+        <text x="295" y="112" font-size="10">stretch σᵢ</text>
+        <ellipse cx="380" cy="100" rx="65" ry="30" fill="none" stroke="#c10f1a"/>
+        <line x1="315" y1="110" x2="445" y2="90" stroke="#c10f1a" stroke-dasharray="3,2"/>
+        <text x="445" y="95" fill="#c10f1a" font-size="18">U</text>
+        <text x="445" y="112" font-size="10">rotate</text>
+        <ellipse cx="540" cy="100" rx="65" ry="30" fill="none" stroke="#c10f1a" transform="rotate(-20 540 100)"/>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 9.1</strong> Any linear map = rotate, stretch along axes, rotate. Singular values are the stretches.</figcaption>
+  </figure>
+
+  <h3>9.2 Low-rank approximation (Eckart–Young)</h3>
+  <p>Truncating the SVD to the top $k$ singular values,
+  $$A_k=\sum_{i=1}^{k}\sigma_i\mathbf{u}_i\mathbf{v}_i^{\top},$$
+  gives the best rank-$k$ approximation of $A$ in the Frobenius norm. This is how <em>every</em> matrix-compression scheme (JPEG-style image compression, model distillation for dense layers, topic modelling) ultimately works.</p>
+
+  <h3>9.3 Principal Component Analysis (PCA)</h3>
+  <p>Given a centred data matrix $X\in\mathbb{R}^{m\times n}$:</p>
+  <ol>
+    <li>Compute SVD $X=U\Sigma V^{\top}$.</li>
+    <li>The columns of $V$ are the <strong>principal directions</strong> (orthonormal features of maximum variance).</li>
+    <li>The <em>scores</em> $XV=U\Sigma$ are the data rotated into the PC coordinate system.</li>
+    <li>Variance explained by PC$_i$ is $\sigma_i^{2}/(m-1)$.</li>
+  </ol>
+
+  <p>Equivalently, PCA diagonalises the covariance matrix $\Sigma_X=\frac{1}{m-1}X^{\top}X=V\Lambda V^{\top}$ with $\lambda_i=\sigma_i^{2}/(m-1)$.</p>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    Before training a model with thousands of correlated features, run PCA and keep enough components to explain ~95% variance. You usually get the same model accuracy with 10–20× fewer features and dramatically faster training.
+  </div>
+
+<pre><code class="language-python">X = np.random.randn(200, 50)
+X -= X.mean(0)
+U, S, Vt = np.linalg.svd(X, full_matrices=False)
+explained = (S**2) / (S**2).sum()
+k = np.searchsorted(np.cumsum(explained), 0.95) + 1
+scores = U[:, :k] * S[:k]                     # X @ V[:, :k]
+reconstruction = scores @ Vt[:k]              # ≈ X for k large
+print(k, "components retain 95% variance")</code></pre>
+
+  <div class="mcq" data-label="MCQ 9">
+    <p><strong>Q.</strong> The best rank-$k$ approximation of $A$ in the Frobenius norm is obtained by:</p>
+    <ol>
+      <li>Keeping the $k$ largest entries of $A$</li>
+      <li>Zeroing the $k$ smallest eigenvalues of $A^{\top}A$</li>
+      <li>Keeping the $k$ largest singular values of $A$</li>
+      <li>Projecting $A$ onto a random $k$-dimensional subspace</li>
+    </ol>
+    <div class="answer"><strong>Answer: C.</strong> This is the Eckart–Young–Mirsky theorem.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 9.1">
+    <p>Compute (by hand, to 2 decimal places) the SVD of $A=\begin{pmatrix}3&amp;0\\4&amp;5\end{pmatrix}$ by first finding the eigenvalues of $A^{\top}A$.</p>
+  </div>
+  <div class="problem" data-label="Problem 9.2">
+    <p>An $m\times n$ dataset has singular values $\sigma=(10,8,2,0.1,0.05)$. Plot the scree (cumulative variance). How many components capture 95% of the variance?</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Every matrix: $A=U\Sigma V^{\top}$ — rotate, stretch, rotate.</li>
+      <li>Top-$k$ SVD = best rank-$k$ approximation (Eckart–Young).</li>
+      <li>PCA = SVD of centred data; variance = $\sigma_i^{2}/(m-1)$.</li>
+      <li>Compression, denoising, LSA, recsys — all leverage truncated SVD.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 10 =================== -->
+<section class="chapter" id="ch10">
+  <div class="chapter-header">
+    <div class="num">10</div>
+    <div class="title">
+      <div class="kicker">Chapter Ten · Practical solvers</div>
+      <h2>Matrix Factorisations</h2>
+    </div>
+  </div>
+
+  <p>In production you never solve $A\mathbf{x}=\mathbf{b}$ with pen-and-paper Gaussian elimination; you use a <em>factorisation</em>. Three dominate numerical practice: LU, QR, and Cholesky.</p>
+
+  <h3>10.1 LU decomposition</h3>
+  <p>Any (permuted) square $A$ admits $PA=LU$ with $L$ unit-lower-triangular and $U$ upper-triangular. Once factored, solve two triangular systems: $L\mathbf{y}=P\mathbf{b}$, then $U\mathbf{x}=\mathbf{y}$. Great when you need to solve many systems with the same $A$.</p>
+
+  <h3>10.2 QR decomposition</h3>
+  <p>Every $A\in\mathbb{R}^{m\times n}$ with $m\geq n$ admits $A=QR$ with $Q$ orthogonal columns and $R$ upper-triangular. For least-squares, $A\boldsymbol{\beta}=\mathbf{y}\Rightarrow R\boldsymbol{\beta}=Q^{\top}\mathbf{y}$. More numerically stable than normal equations.</p>
+
+  <h3>10.3 Cholesky decomposition</h3>
+  <p>If $A$ is symmetric positive-definite, $A=LL^{\top}$ with $L$ lower-triangular. Twice as fast as LU and the workhorse of Gaussian processes, Kalman filters, and Bayesian inference.</p>
+
+  <figure>
+    <svg viewBox="0 0 620 180" width="620" height="180" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="JetBrains Mono" font-size="13">
+        <!-- A = LU -->
+        <rect x="10"  y="40" width="90" height="90" fill="#c10f1a" opacity="0.18" stroke="#c10f1a"/>
+        <text x="55" y="95" text-anchor="middle">A</text>
+        <text x="110" y="95" font-size="16">=</text>
+        <polygon points="130,40 130,130 220,130" fill="#0a0a0a" opacity="0.1" stroke="#0a0a0a"/>
+        <text x="160" y="110" text-anchor="middle">L</text>
+        <polygon points="240,40 330,40 330,130" fill="#0a0a0a" opacity="0.1" stroke="#0a0a0a"/>
+        <text x="290" y="70" text-anchor="middle">U</text>
+
+        <!-- A = QR -->
+        <rect x="360" y="40" width="70" height="90" fill="#c10f1a" opacity="0.18" stroke="#c10f1a"/>
+        <text x="395" y="95" text-anchor="middle">A</text>
+        <text x="435" y="95" font-size="16">=</text>
+        <rect x="455" y="40" width="70" height="90" fill="#0a0a0a" opacity="0.1" stroke="#0a0a0a"/>
+        <text x="490" y="95" text-anchor="middle">Q</text>
+        <polygon points="540,40 610,40 610,80 540,80" fill="#0a0a0a" opacity="0.1" stroke="#0a0a0a"/>
+        <text x="575" y="65" text-anchor="middle">R</text>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 10.1</strong> Shapes of the LU and QR factorisations.</figcaption>
+  </figure>
+
+  <h3>10.4 When to use what</h3>
+  <table>
+    <thead><tr><th>Problem</th><th>Best factorisation</th><th>Cost (dense, $n\times n$)</th></tr></thead>
+    <tbody>
+      <tr><td>General $A\mathbf{x}=\mathbf{b}$</td><td>LU with partial pivoting</td><td>$\tfrac{2}{3}n^{3}$</td></tr>
+      <tr><td>Least squares, rectangular</td><td>QR (Householder)</td><td>$2mn^{2}-\tfrac{2}{3}n^{3}$</td></tr>
+      <tr><td>Symmetric positive definite</td><td>Cholesky</td><td>$\tfrac{1}{3}n^{3}$</td></tr>
+      <tr><td>Rank-deficient / ill-conditioned</td><td>SVD (Ch. 9)</td><td>$O(mn^{2})$</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens</div>
+    <code>scipy.linalg.cho_solve</code> vs <code>scipy.linalg.solve</code> can be a 2× speedup on Gaussian process regression where the kernel matrix is SPD. Always check whether your matrix has exploitable structure.
+  </div>
+
+<pre><code class="language-python">from scipy.linalg import lu, qr, cho_factor, cho_solve
+A = np.array([[4, 12, -16],
+              [12, 37, -43],
+              [-16, -43, 98]], float)   # SPD
+c, low = cho_factor(A)                  # Cholesky
+x = cho_solve((c, low), np.array([1, 2, 3], float))
+Q, R = qr(A)                             # QR
+P, L, U = lu(A)                          # LU</code></pre>
+
+  <div class="mcq" data-label="MCQ 10">
+    <p><strong>Q.</strong> Which factorisation is the <em>most numerically stable</em> choice for solving a rank-deficient least-squares problem?</p>
+    <ol><li>LU</li><li>Cholesky</li><li>QR</li><li>SVD</li></ol>
+    <div class="answer"><strong>Answer: D.</strong> SVD handles rank deficiency directly via the Moore–Penrose pseudoinverse $A^{+}=V\Sigma^{+}U^{\top}$.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 10.1">
+    <p>By hand, compute the LU decomposition (no pivoting) of $A=\begin{pmatrix}2&amp;1&amp;1\\4&amp;-6&amp;0\\-2&amp;7&amp;2\end{pmatrix}$.</p>
+  </div>
+  <div class="problem" data-label="Problem 10.2">
+    <p>A kernel matrix $K=\begin{pmatrix}2&amp;1\\1&amp;3\end{pmatrix}$ is SPD. Find its Cholesky factor $L$ such that $K=LL^{\top}$.</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>LU: general solve. QR: least squares. Cholesky: SPD. SVD: anything.</li>
+      <li>Factor once, solve many times.</li>
+      <li>Exploiting structure = order-of-magnitude speedups.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 11 =================== -->
+<section class="chapter" id="ch11">
+  <div class="chapter-header">
+    <div class="num">11</div>
+    <div class="title">
+      <div class="kicker">Chapter Eleven · When math meets floating point</div>
+      <h2>Numerical Linear Algebra</h2>
+    </div>
+  </div>
+
+  <p>On a computer, every number is rounded. Two mathematically identical algorithms can produce wildly different answers. This chapter explains the concepts every practitioner needs: <em>conditioning</em>, <em>stability</em>, and <em>sparsity</em>.</p>
+
+  <h3>11.1 Condition number</h3>
+  <div class="callout definition">
+    <div class="label">Definition · Condition Number</div>
+    $\kappa(A)=\sigma_{\max}(A)/\sigma_{\min}(A)$. If $\kappa$ is large, tiny perturbations of $\mathbf{b}$ can cause large perturbations of $\mathbf{x}=A^{-1}\mathbf{b}$.
+  </div>
+
+  <p>Rule of thumb: if $\kappa(A)\approx 10^{k}$, expect to lose $\approx k$ digits of accuracy. Ridge regression and Tikhonov regularisation are methods of reducing the effective condition number.</p>
+
+  <h3>11.2 Numerical stability: backward error</h3>
+  <p>An algorithm is <em>backward stable</em> if it returns the exact solution to a slightly perturbed problem. Householder QR is backward stable; the textbook Gram–Schmidt is <em>not</em> — in floating point its "orthogonal" vectors drift. Use <em>modified</em> Gram–Schmidt, or (better) Householder reflections.</p>
+
+  <h3>11.3 Sparse matrices</h3>
+  <figure>
+    <svg viewBox="0 0 560 180" width="560" height="180" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="Inter" font-size="11">
+        <text x="10" y="20">Dense 8×8 (64 entries)</text>
+        <g fill="#c10f1a">
+          <!-- random grid of dots -->
+          <circle cx="20" cy="40" r="3"/><circle cx="40" cy="40" r="3"/><circle cx="60" cy="40" r="3"/><circle cx="80" cy="40" r="3"/><circle cx="100" cy="40" r="3"/><circle cx="120" cy="40" r="3"/><circle cx="140" cy="40" r="3"/><circle cx="160" cy="40" r="3"/>
+          <circle cx="20" cy="60" r="3"/><circle cx="40" cy="60" r="3"/><circle cx="60" cy="60" r="3"/><circle cx="80" cy="60" r="3"/><circle cx="100" cy="60" r="3"/><circle cx="120" cy="60" r="3"/><circle cx="140" cy="60" r="3"/><circle cx="160" cy="60" r="3"/>
+          <circle cx="20" cy="80" r="3"/><circle cx="40" cy="80" r="3"/><circle cx="60" cy="80" r="3"/><circle cx="80" cy="80" r="3"/><circle cx="100" cy="80" r="3"/><circle cx="120" cy="80" r="3"/><circle cx="140" cy="80" r="3"/><circle cx="160" cy="80" r="3"/>
+          <circle cx="20" cy="100" r="3"/><circle cx="40" cy="100" r="3"/><circle cx="60" cy="100" r="3"/><circle cx="80" cy="100" r="3"/><circle cx="100" cy="100" r="3"/><circle cx="120" cy="100" r="3"/><circle cx="140" cy="100" r="3"/><circle cx="160" cy="100" r="3"/>
+        </g>
+        <text x="260" y="20">Sparse (nnz = 14)</text>
+        <g fill="#c10f1a">
+          <circle cx="270" cy="40" r="3"/><circle cx="290" cy="40" r="3"/><circle cx="370" cy="40" r="3"/>
+          <circle cx="310" cy="60" r="3"/><circle cx="330" cy="60" r="3"/>
+          <circle cx="350" cy="80" r="3"/><circle cx="390" cy="80" r="3"/>
+          <circle cx="270" cy="100" r="3"/><circle cx="330" cy="100" r="3"/>
+          <circle cx="290" cy="120" r="3"/><circle cx="370" cy="120" r="3"/>
+          <circle cx="310" cy="140" r="3"/><circle cx="350" cy="140" r="3"/><circle cx="390" cy="140" r="3"/>
+        </g>
+        <text x="440" y="85" fill="#c10f1a">store only non-zeros ⟶</text>
+        <text x="440" y="102" fill="#6b6b6b">CSR, CSC, COO</text>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 11.1</strong> Typical TF–IDF / adjacency matrices are &gt; 99% zero. Never store them densely.</figcaption>
+  </figure>
+
+  <h3>11.4 Iterative solvers</h3>
+  <p>For huge sparse systems (millions of unknowns), direct factorisation is infeasible. Iterative methods — <em>Conjugate Gradient</em> (SPD), <em>GMRES</em> (general), <em>Lanczos/Arnoldi</em> (top-k eigenvalues) — converge in far fewer iterations than the matrix has rows, using only matrix-vector products.</p>
+
+  <div class="callout warning">
+    <div class="label">Gotcha</div>
+    Always check <code>np.linalg.cond(A)</code> before doing <code>np.linalg.solve(A, b)</code> on ill-conditioned problems. A condition number $&gt;10^{12}$ in double precision essentially returns noise.
+  </div>
+
+<pre><code class="language-python">from scipy.sparse import csr_matrix
+from scipy.sparse.linalg import cg
+A_sparse = csr_matrix(np.diag(np.arange(1, 1001, dtype=float)))
+b = np.ones(1000)
+x, info = cg(A_sparse, b, atol=1e-8)     # converges in O(√κ) steps
+print(info)                               # 0 = converged</code></pre>
+
+  <div class="mcq" data-label="MCQ 11">
+    <p><strong>Q.</strong> Doubling every entry of $A$ changes the condition number $\kappa(A)=\sigma_{\max}/\sigma_{\min}$ to:</p>
+    <ol><li>$2\kappa$</li><li>$\kappa/2$</li><li>$\kappa$</li><li>$4\kappa$</li></ol>
+    <div class="answer"><strong>Answer: C.</strong> Scaling all singular values by 2 cancels in the ratio.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 11.1">
+    <p>Compute the condition number of $A=\begin{pmatrix}1&amp;1\\1&amp;1.0001\end{pmatrix}$ (in NumPy if you like). Explain why tiny changes in $\mathbf{b}$ destabilise the solution.</p>
+  </div>
+  <div class="problem" data-label="Problem 11.2">
+    <p>Why is Cholesky factorisation <em>twice as fast</em> as LU? Count the multiplications needed for an $n\times n$ SPD matrix.</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Condition number bounds the damage that round-off can do.</li>
+      <li>Prefer backward-stable algorithms (Householder, modified G-S).</li>
+      <li>Sparse storage is non-negotiable for real datasets.</li>
+      <li>Iterative CG/GMRES scale where direct methods can't.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== CH 12 =================== -->
+<section class="chapter" id="ch12">
+  <div class="chapter-header">
+    <div class="num">12</div>
+    <div class="title">
+      <div class="kicker">Chapter Twelve · Linear algebra in the wild</div>
+      <h2>Applications in Data Science</h2>
+    </div>
+  </div>
+
+  <p>This final chapter walks through four iconic data-science systems and pinpoints the linear algebra driving each.</p>
+
+  <h3>12.1 Word embeddings &amp; latent semantic analysis</h3>
+  <p>Build the term–document matrix $X$, compute its truncated SVD $X_k=U_k\Sigma_k V_k^{\top}$. Rows of $U_k$ give a $k$-dimensional vector for every word; $\cos$-similarity in that space captures meaning. The same idea powers item2vec, node2vec, and classical collaborative filtering.</p>
+
+  <h3>12.2 PageRank</h3>
+  <p>Let $M$ be the column-stochastic adjacency matrix of the web. The <em>PageRank</em> vector $\mathbf{r}$ is the dominant eigenvector of the Google matrix
+  $$G=\alpha M+(1-\alpha)\tfrac{1}{n}\mathbf{1}\mathbf{1}^{\top},\qquad \alpha\approx 0.85.$$
+  Power iteration converges in $\sim 50$ multiplications — cheap even for billions of pages because $M$ is extremely sparse.</p>
+
+  <h3>12.3 Recommender systems (matrix factorisation)</h3>
+  <figure>
+    <svg viewBox="0 0 600 200" width="600" height="200" xmlns="http://www.w3.org/2000/svg">
+      <g font-family="JetBrains Mono" font-size="12">
+        <rect x="10" y="30" width="220" height="140" fill="#c10f1a" opacity="0.18" stroke="#c10f1a"/>
+        <text x="120" y="20" font-family="Inter" text-anchor="middle">R (users × items, mostly ?)</text>
+        <text x="240" y="105" font-family="Inter" font-size="18">≈</text>
+        <rect x="265" y="30" width="60" height="140" fill="#0a0a0a" opacity="0.1" stroke="#0a0a0a"/>
+        <text x="295" y="20" font-family="Inter" text-anchor="middle">U</text>
+        <rect x="340" y="60" width="180" height="40" fill="#0a0a0a" opacity="0.1" stroke="#0a0a0a"/>
+        <text x="430" y="50" font-family="Inter" text-anchor="middle">Vᵀ</text>
+        <text x="430" y="150" font-family="Inter" fill="#c10f1a" text-anchor="middle">k latent factors — tastes &amp; attributes</text>
+      </g>
+    </svg>
+    <figcaption><strong>Figure 12.1</strong> Netflix-style collaborative filtering = low-rank completion of a giant, mostly-missing matrix.</figcaption>
+  </figure>
+
+  <p>Fit latent user and item matrices $U,V$ by minimising $\sum_{(i,j)\in \Omega}(R_{ij}-\mathbf{u}_i^{\top}\mathbf{v}_j)^{2}+\lambda(\|\mathbf{u}_i\|^{2}+\|\mathbf{v}_j\|^{2})$ over the <em>observed</em> entries $\Omega$ (alternating least squares, SGD, or implicit ALS).</p>
+
+  <h3>12.4 Neural networks</h3>
+  <p>Every forward pass of a feed-forward network is a sequence of matrix multiplies interleaved with non-linearities:</p>
+  <div class="eqn">$$\mathbf{h}_{\ell}=\sigma(W_{\ell}\mathbf{h}_{\ell-1}+\mathbf{b}_{\ell}).$$</div>
+  <p>Back-propagation is repeated application of the chain rule — which in matrix form is transpose, multiply, and element-wise Hadamard product with $\sigma'$. Attention in Transformers computes $\text{softmax}(QK^{\top}/\sqrt{d})V$ — three matrix products. Training on a GPU is essentially a festival of dense matrix multiplications.</p>
+
+  <div class="callout ds">
+    <div class="label">Data Scientist Lens · Tying it together</div>
+    <ul style="margin:.2rem 0 0 1rem">
+      <li>Regression → Chapter 7 (projections).</li>
+      <li>Logistic regression gradient → Chapter 1 (dot products) + Chapter 2.</li>
+      <li>PCA for viz → Chapter 9.</li>
+      <li>Recommender systems → Chapters 9 + 10 (low-rank, ALS).</li>
+      <li>Transformer attention → Chapters 2 + 8 (matrix products, eigenvalues for stability).</li>
+      <li>Gaussian processes → Chapter 10 (Cholesky).</li>
+    </ul>
+  </div>
+
+<pre><code class="language-python">import numpy as np
+# Toy matrix-factorisation recommender (ALS, 1 iteration)
+R = np.array([[5,3,0,1],
+              [4,0,0,1],
+              [1,1,0,5],
+              [0,0,4,4]], float)
+mask = (R > 0).astype(float)
+k = 2; rng = np.random.default_rng(0)
+U = rng.standard_normal((4, k)); V = rng.standard_normal((4, k))
+for _ in range(50):
+    for i in range(4):
+        obs = mask[i] == 1
+        U[i] = np.linalg.lstsq(V[obs], R[i, obs], rcond=None)[0]
+    for j in range(4):
+        obs = mask[:, j] == 1
+        V[j] = np.linalg.lstsq(U[obs], R[obs, j], rcond=None)[0]
+print(np.round(U @ V.T, 2))     # filled-in ratings</code></pre>
+
+  <div class="mcq" data-label="MCQ 12">
+    <p><strong>Q.</strong> In Transformer self-attention, the matrix $QK^{\top}$ has shape:</p>
+    <ol>
+      <li>$(d\times d)$</li>
+      <li>$(n\times n)$ where $n$ is sequence length</li>
+      <li>$(n\times d)$</li>
+      <li>$(1\times n)$</li>
+    </ol>
+    <div class="answer"><strong>Answer: B.</strong> $Q,K\in\mathbb{R}^{n\times d}$ so $QK^{\top}\in\mathbb{R}^{n\times n}$: a pairwise token-to-token score matrix.</div>
+  </div>
+
+  <div class="problem" data-label="Problem 12.1">
+    <p>Given a $5\times 5$ web adjacency matrix, compute one step of power iteration starting from $\mathbf{r}_0=\tfrac{1}{5}\mathbf{1}$ with damping $\alpha=0.85$. (Choose any sparse example.)</p>
+  </div>
+  <div class="problem" data-label="Problem 12.2">
+    <p>Prove that if $W\in\mathbb{R}^{d\times d}$ has all singular values $&lt;1$, a deep linear network $\mathbf{y}=W^{L}\mathbf{x}$ suffers vanishing gradients as $L\to\infty$. Relate this to the need for residual connections.</p>
+  </div>
+
+  <div class="recap">
+    <h4>Recap Card</h4>
+    <ul>
+      <li>Every ML algorithm you love is "some matrix factorisation plus a loss".</li>
+      <li>Sparse eigen-methods power the web (PageRank).</li>
+      <li>Low-rank completion powers recommenders.</li>
+      <li>Neural nets are dense-matrix products at scale.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== END MATTER =================== -->
+<section class="endmatter" id="ans">
+  <h2>Appendix A · Answer Key</h2>
+  <p>Worked solutions for the Problems in each chapter. MCQ answers are given inline at the question.</p>
+
+  <h3>Chapter 1</h3>
+  <p><strong>1.1</strong> (i) $(4,-2,-2)$; (ii) $3+0-8=-5$; (iii) $\cos\theta=-5/(3\cdot 5)=-1/3,\;\theta\approx 109.5^{\circ}$; (iv) $\hat{\mathbf{a}}=(1/3,-2/3,2/3)$.</p>
+  <p><strong>1.2</strong> Score $=2(0.5)+(-1)(-1.2)+0.5(3)-0.25 = 1+1.2+1.5-0.25=3.45 &gt; 0 \Rightarrow \hat y=1$.</p>
+
+  <h3>Chapter 2</h3>
+  <p><strong>2.1</strong> $AB=\begin{pmatrix}2&amp;1\\4&amp;3\end{pmatrix},\;BA=\begin{pmatrix}3&amp;4\\1&amp;2\end{pmatrix}$; indeed $(AB)^{\top}=B^{\top}A^{\top}$.</p>
+  <p><strong>2.2</strong> $Z$ is $1000\times 10$. Scalar mults: $1000\cdot 10\cdot 50 = 5\times 10^{5}$.</p>
+
+  <h3>Chapter 3</h3>
+  <p><strong>3.1</strong> $x=2,\;y=1,\;z=1$ (unique).</p>
+  <p><strong>3.2</strong> Unique if $k\neq 2$; infinitely many if $k=2$ (identical equations); never "no solution" given the matching RHS.</p>
+
+  <h3>Chapter 4</h3>
+  <p><strong>4.1</strong> $=2\det\begin{pmatrix}-1&amp;4\\2&amp;0\end{pmatrix}-0+\det\begin{pmatrix}1&amp;3\\-1&amp;4\end{pmatrix}=2(-8)+7=-9$.</p>
+  <p><strong>4.2</strong> Upper-triangular; $\det(A-\lambda I)=(3-\lambda)(2-\lambda)=0$, so $\lambda=2,3$.</p>
+
+  <h3>Chapter 5</h3>
+  <p><strong>5.1</strong> Rank $2$. Column-space basis: columns 1 and 2 of $A$. Null-space basis: $(-1,-1,1)^{\top}$.</p>
+  <p><strong>5.2</strong> $\mathbf{u}\in C(A^{\top})\Rightarrow \mathbf{u}=A^{\top}\mathbf{z}$. Then $\mathbf{u}^{\top}\mathbf{v}=\mathbf{z}^{\top}A\mathbf{v}=\mathbf{z}^{\top}\mathbf{0}=0$.</p>
+
+  <h3>Chapter 6</h3>
+  <p><strong>6.1</strong> $R_{90}=\begin{pmatrix}0&amp;-1\\1&amp;0\end{pmatrix}$; reflection $F_y=\begin{pmatrix}-1&amp;0\\0&amp;1\end{pmatrix}$. Composition $F_y R_{90}=\begin{pmatrix}0&amp;1\\1&amp;0\end{pmatrix}$. Applied to $(1,0)^{\top}$: $(0,1)^{\top}$.</p>
+  <p><strong>6.2</strong> Matrix $\begin{pmatrix}1&amp;1&amp;0\\0&amp;1&amp;-1\end{pmatrix}$. $\ker=\text{span}\{(1,-1,-1)^{\top}\}$; image $=\mathbb{R}^{2}$.</p>
+
+  <h3>Chapter 7</h3>
+  <p><strong>7.1</strong> $A^{\top}A=\begin{pmatrix}3&amp;3\\3&amp;5\end{pmatrix}$, $A^{\top}\mathbf{y}=(6,0)^{\top}$. $\hat{\boldsymbol{\beta}}=(5,-3)^{\top}$. Residual $(1,-2,1)^{\top}$ is orthogonal to both columns of $A$.</p>
+  <p><strong>7.2</strong> $\mathbf{q}_1=(1,1,0)/\sqrt{2}$; $\mathbf{u}_2=(1,0,1)-\tfrac{1}{2}(1,1,0)=(1/2,-1/2,1)$; $\mathbf{q}_2=(1,-1,2)/\sqrt{6}$.</p>
+
+  <h3>Chapter 8</h3>
+  <p><strong>8.1</strong> $\lambda=3$ with $\mathbf{v}=(1,1)^{\top}/\sqrt{2}$; $\lambda=1$ with $\mathbf{v}=(1,-1)^{\top}/\sqrt{2}$. The eigenvectors are orthogonal (spectral theorem).</p>
+  <p><strong>8.2</strong> $\det(A-I)=0$; eigenvector $(2,1)^{\top}$ normalised to $(2/3,1/3)^{\top}$ — stationary distribution.</p>
+
+  <h3>Chapter 9</h3>
+  <p><strong>9.1</strong> $A^{\top}A=\begin{pmatrix}25&amp;20\\20&amp;25\end{pmatrix}$, eigenvalues $45,5$; singular values $\approx 6.71,\;2.24$. Matching $V,U$ completes the SVD.</p>
+  <p><strong>9.2</strong> Variance $=\sigma^{2}/\sum\sigma^{2}\approx (100,64,4,0.01,0.0025)/168.01$. Cumulative: $\approx 0.595,\,0.976,\,0.999,\,\dots$ — two PCs capture $\approx 97.6\%$.</p>
+
+  <h3>Chapter 10</h3>
+  <p><strong>10.1</strong> $L=\begin{pmatrix}1&amp;0&amp;0\\2&amp;1&amp;0\\-1&amp;-1&amp;1\end{pmatrix},\;U=\begin{pmatrix}2&amp;1&amp;1\\0&amp;-8&amp;-2\\0&amp;0&amp;1\end{pmatrix}$.</p>
+  <p><strong>10.2</strong> $L=\begin{pmatrix}\sqrt{2}&amp;0\\1/\sqrt{2}&amp;\sqrt{5/2}\end{pmatrix}$.</p>
+
+  <h3>Chapter 11</h3>
+  <p><strong>11.1</strong> $\kappa(A)\approx 4\times 10^{4}$ — tiny RHS perturbations blow up $4\times 10^{4}$ times in the solution.</p>
+  <p><strong>11.2</strong> Cholesky exploits symmetry: only the lower triangle is touched, halving the work ($\tfrac{1}{3}n^{3}$ vs $\tfrac{2}{3}n^{3}$).</p>
+
+  <h3>Chapter 12</h3>
+  <p><strong>12.1</strong> One iteration: $\mathbf{r}_1=\alpha M\mathbf{r}_0+(1-\alpha)\tfrac{1}{n}\mathbf{1}$. For any chosen sparse $M$ the vector converges within ~50 iterations.</p>
+  <p><strong>12.2</strong> $\|W^{L}\mathbf{x}\|\leq\sigma_{\max}(W)^{L}\|\mathbf{x}\|\to 0$ exponentially. Residual connections $\mathbf{y}=\mathbf{x}+W\mathbf{x}$ make the effective Jacobian $(I+W)$, keeping singular values near 1.</p>
+</section>
+
+<section class="endmatter" id="np">
+  <h2>Appendix B · NumPy Cheatsheet</h2>
+  <table>
+    <thead><tr><th>Operation</th><th>NumPy / SciPy</th></tr></thead>
+    <tbody>
+      <tr><td>Dot product</td><td><code>u @ v</code> or <code>np.dot(u, v)</code></td></tr>
+      <tr><td>Norm</td><td><code>np.linalg.norm(v)</code></td></tr>
+      <tr><td>Matrix product</td><td><code>A @ B</code></td></tr>
+      <tr><td>Transpose</td><td><code>A.T</code></td></tr>
+      <tr><td>Inverse</td><td><code>np.linalg.inv(A)</code> (rarely use)</td></tr>
+      <tr><td>Solve $A\mathbf{x}=\mathbf{b}$</td><td><code>np.linalg.solve(A, b)</code></td></tr>
+      <tr><td>Least squares</td><td><code>np.linalg.lstsq(A, b, rcond=None)</code></td></tr>
+      <tr><td>Rank</td><td><code>np.linalg.matrix_rank(A)</code></td></tr>
+      <tr><td>Determinant</td><td><code>np.linalg.det(A)</code></td></tr>
+      <tr><td>Eigenvalues / vectors</td><td><code>np.linalg.eig(A)</code>, <code>eigh(A)</code> (symmetric)</td></tr>
+      <tr><td>SVD</td><td><code>np.linalg.svd(A, full_matrices=False)</code></td></tr>
+      <tr><td>QR</td><td><code>np.linalg.qr(A)</code></td></tr>
+      <tr><td>LU</td><td><code>scipy.linalg.lu(A)</code></td></tr>
+      <tr><td>Cholesky</td><td><code>np.linalg.cholesky(A)</code></td></tr>
+      <tr><td>Condition number</td><td><code>np.linalg.cond(A)</code></td></tr>
+      <tr><td>Pseudoinverse</td><td><code>np.linalg.pinv(A)</code></td></tr>
+      <tr><td>Sparse CG</td><td><code>scipy.sparse.linalg.cg</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="endmatter" id="glossary">
+  <h2>Appendix C · Glossary</h2>
+  <dl>
+    <dt><strong>Basis</strong></dt><dd>An independent spanning set for a subspace.</dd>
+    <dt><strong>Condition number</strong></dt><dd>Ratio $\sigma_{\max}/\sigma_{\min}$; measures numerical sensitivity.</dd>
+    <dt><strong>Determinant</strong></dt><dd>Signed volume factor; zero iff singular.</dd>
+    <dt><strong>Eigenvalue</strong></dt><dd>Scalar $\lambda$ with $A\mathbf{v}=\lambda\mathbf{v}$ for some non-zero $\mathbf{v}$.</dd>
+    <dt><strong>Frobenius norm</strong></dt><dd>$\|A\|_F=\sqrt{\sum a_{ij}^{2}}=\sqrt{\sum\sigma_i^{2}}$.</dd>
+    <dt><strong>Null space</strong></dt><dd>$\{\mathbf{x}:A\mathbf{x}=\mathbf{0}\}$.</dd>
+    <dt><strong>Orthogonal matrix</strong></dt><dd>Square $Q$ with $Q^{\top}Q=I$; a rotation / reflection.</dd>
+    <dt><strong>Positive definite</strong></dt><dd>Symmetric $A$ with $\mathbf{x}^{\top}A\mathbf{x}&gt;0$ for all $\mathbf{x}\neq\mathbf{0}$.</dd>
+    <dt><strong>Rank</strong></dt><dd>Dimension of the column (equivalently row) space.</dd>
+    <dt><strong>Singular value</strong></dt><dd>Non-negative entry of $\Sigma$ in the SVD.</dd>
+    <dt><strong>Span</strong></dt><dd>Set of all linear combinations of a collection of vectors.</dd>
+    <dt><strong>Trace</strong></dt><dd>$\text{tr}(A)=\sum a_{ii}=\sum\lambda_i$ (eigenvalues).</dd>
+  </dl>
+</section>
+
+<section class="endmatter" id="refs">
+  <h2>Appendix D · References &amp; Further Reading</h2>
+  <ol>
+    <li>Gilbert Strang — <em>Introduction to Linear Algebra</em> (6th ed.), Wellesley-Cambridge Press.</li>
+    <li>Gilbert Strang — <em>Linear Algebra and Learning from Data</em>, Wellesley-Cambridge Press, 2019.</li>
+    <li>Trefethen &amp; Bau — <em>Numerical Linear Algebra</em>, SIAM, 1997.</li>
+    <li>Deisenroth, Faisal &amp; Ong — <em>Mathematics for Machine Learning</em>, Cambridge Univ. Press, 2020 (free PDF at mml-book.com).</li>
+    <li>Golub &amp; Van Loan — <em>Matrix Computations</em> (4th ed.), Johns Hopkins, 2013.</li>
+    <li>3Blue1Brown — <em>Essence of Linear Algebra</em> video series, YouTube.</li>
+    <li>MIT OpenCourseWare 18.06 — Prof. Strang's lectures.</li>
+  </ol>
+
+  <hr class="red"/>
+  <p style="text-align:center;color:var(--muted);font-family:var(--sans);font-size:.9rem">
+    <em>Introduction to Linear Algebra — For Data Scientists</em> · First edition · April 2026 · © M. Aammar Amjad.
+  </p>
+</section>
+
+</body>
+</html>
