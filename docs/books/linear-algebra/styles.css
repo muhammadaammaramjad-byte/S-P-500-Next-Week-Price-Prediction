@@ -1,0 +1,209 @@
+/* ============================================================
+   Linear Algebra for Data Scientists — Stylesheet
+   Palette: Black / White / Red
+   ============================================================ */
+
+:root {
+  --ink:        #0a0a0a;
+  --paper:      #ffffff;
+  --paper-2:    #f7f7f7;
+  --rule:       #1a1a1a;
+  --accent:     #c10f1a;   /* primary red */
+  --accent-2:   #8a0b13;   /* deep red */
+  --accent-soft:#fde7e9;   /* wash red for callouts */
+  --muted:      #6b6b6b;
+  --mono:       "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  --serif:      "Source Serif Pro", "Georgia", "Times New Roman", serif;
+  --sans:       "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 12pt;
+  line-height: 1.55;
+}
+
+body { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ---------- Typography ---------- */
+h1, h2, h3, h4 { font-family: var(--sans); color: var(--ink); line-height: 1.2; }
+h1 { font-size: 2.4rem; letter-spacing: -0.01em; margin: 0 0 0.4rem; }
+h2 { font-size: 1.8rem; margin: 2.2rem 0 0.6rem; padding-bottom: 0.3rem;
+     border-bottom: 3px solid var(--accent); }
+h3 { font-size: 1.25rem; margin: 1.6rem 0 0.4rem; color: var(--accent-2); }
+h4 { font-size: 1.05rem; margin: 1rem 0 0.3rem; }
+
+p  { margin: 0.6rem 0; text-align: justify; hyphens: auto; }
+a  { color: var(--accent-2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+code, pre, .mono { font-family: var(--mono); }
+code { background: var(--paper-2); padding: 0.1rem 0.3rem; border-radius: 3px;
+       font-size: 0.92em; border: 1px solid #eee; }
+pre  { background: #0a0a0a; color: #f5f5f5; padding: 1rem 1.2rem;
+       border-left: 4px solid var(--accent); border-radius: 4px;
+       overflow-x: auto; font-size: 0.9em; }
+pre code { background: transparent; color: inherit; border: 0; padding: 0; }
+
+blockquote { margin: 1rem 0; padding: 0.6rem 1rem;
+             border-left: 4px solid var(--accent); background: var(--paper-2);
+             color: var(--ink); font-style: italic; }
+
+/* ---------- Cover ---------- */
+.cover {
+  min-height: 95vh;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 3rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+  page-break-after: always;
+}
+.cover .eyebrow { font-family: var(--sans); text-transform: uppercase;
+                  letter-spacing: 0.3em; font-size: 0.85rem; color: var(--accent); }
+.cover h1 { font-size: 3.6rem; margin: 1rem 0 0.2rem; color: var(--paper); }
+.cover .sub { font-size: 1.3rem; color: var(--paper); opacity: 0.85;
+              font-family: var(--sans); font-weight: 300; }
+.cover .author { font-family: var(--sans); font-size: 1rem; color: var(--paper); }
+.cover .author strong { color: var(--accent); font-weight: 700; }
+.cover .redbar { height: 6px; width: 140px; background: var(--accent); margin: 1.2rem 0; }
+.cover .art { position: absolute; right: -60px; top: 40%;
+              transform: translateY(-50%); opacity: 0.95; }
+
+/* ---------- Page structure ---------- */
+section.chapter { page-break-before: always; padding-top: 1rem; }
+.chapter-header {
+  display: flex; align-items: baseline; gap: 1rem;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 0.4rem; margin-bottom: 1rem;
+}
+.chapter-header .num {
+  font-family: var(--sans); font-size: 3.2rem; font-weight: 800;
+  color: var(--accent); line-height: 1;
+}
+.chapter-header .title { flex: 1; }
+.chapter-header h2 { border: 0; margin: 0; padding: 0; }
+.chapter-header .kicker {
+  font-family: var(--sans); text-transform: uppercase;
+  letter-spacing: 0.25em; font-size: 0.75rem; color: var(--muted);
+}
+
+/* ---------- Callouts ---------- */
+.callout {
+  border: 1px solid var(--ink); border-left: 6px solid var(--accent);
+  padding: 0.8rem 1rem; margin: 1rem 0;
+  background: var(--paper);
+}
+.callout .label {
+  font-family: var(--sans); text-transform: uppercase;
+  letter-spacing: 0.2em; font-size: 0.72rem; color: var(--accent);
+  font-weight: 700; margin-bottom: 0.3rem;
+}
+.callout.ds { background: var(--accent-soft); border-left-color: var(--accent); }
+.callout.definition { border-left-color: var(--ink); }
+.callout.warning { border-left-color: var(--accent-2); background: #fff4f5; }
+
+/* ---------- MCQ & Problems ---------- */
+.mcq, .problem {
+  border: 2px solid var(--ink);
+  padding: 0.9rem 1.1rem; margin: 1.2rem 0; background: var(--paper);
+  position: relative;
+}
+.mcq::before, .problem::before {
+  content: attr(data-label);
+  position: absolute; top: -12px; left: 16px;
+  background: var(--accent); color: var(--paper);
+  font-family: var(--sans); font-weight: 700;
+  font-size: 0.75rem; padding: 2px 10px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+}
+.mcq ol { list-style: upper-alpha; padding-left: 1.6rem; margin: 0.4rem 0; }
+.mcq ol li { margin: 0.15rem 0; }
+
+.answer {
+  margin-top: 0.5rem; padding: 0.4rem 0.7rem;
+  background: var(--ink); color: var(--paper);
+  font-family: var(--sans); font-size: 0.9em; border-radius: 2px;
+}
+.answer strong { color: var(--accent); }
+
+/* ---------- Summary card ---------- */
+.recap {
+  margin: 1.5rem 0;
+  border: 2px dashed var(--accent);
+  padding: 0.8rem 1rem; background: #fff;
+}
+.recap h4 { margin: 0 0 0.4rem; color: var(--accent); letter-spacing: 0.15em;
+            text-transform: uppercase; font-size: 0.8rem; }
+.recap ul { margin: 0.3rem 0 0 1.1rem; padding: 0; }
+
+/* ---------- TOC ---------- */
+.toc { page-break-after: always; }
+.toc ol { list-style: none; padding: 0; margin: 1rem 0; }
+.toc > ol > li {
+  display: flex; align-items: baseline; gap: 0.6rem;
+  padding: 0.35rem 0; border-bottom: 1px dotted #aaa;
+  font-family: var(--sans);
+}
+.toc > ol > li .cnum {
+  color: var(--accent); font-weight: 700; min-width: 2.2em;
+}
+.toc > ol > li .ctitle { flex: 1; }
+.toc > ol > li .cpage  { color: var(--ink); font-variant-numeric: tabular-nums; }
+.toc ul { list-style: none; padding-left: 2.8em; margin: 0.2rem 0 0.5rem;
+          font-size: 0.9em; color: var(--muted); }
+.toc ul li::before { content: "▸ "; color: var(--accent); }
+
+/* ---------- Tables ---------- */
+table { width: 100%; border-collapse: collapse; margin: 0.8rem 0;
+        font-family: var(--sans); font-size: 0.92em; }
+th, td { border: 1px solid var(--ink); padding: 0.4rem 0.6rem; text-align: left; }
+thead th { background: var(--ink); color: var(--paper); }
+tbody tr:nth-child(even) { background: var(--paper-2); }
+
+/* ---------- Math blocks ---------- */
+.katex-display { margin: 0.8rem 0 !important; }
+.eqn { text-align: center; margin: 0.9rem 0; }
+.eqn .num { float: right; color: var(--accent); font-family: var(--sans);
+            font-size: 0.9em; }
+
+/* ---------- Figures / diagrams ---------- */
+figure { margin: 1.2rem 0; text-align: center; }
+figure svg { max-width: 100%; height: auto; }
+figcaption { font-family: var(--sans); font-size: 0.85em; color: var(--muted);
+             margin-top: 0.3rem; }
+figcaption strong { color: var(--accent); }
+
+/* ---------- Grid helpers ---------- */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ---------- Print ---------- */
+@media print {
+  body { max-width: none; padding: 0; font-size: 11pt; }
+  .cover { min-height: 100vh; }
+  section.chapter, .toc, .cover, .endmatter { page-break-after: always; }
+  h2, h3 { page-break-after: avoid; }
+  figure, .callout, .mcq, .problem, .recap { page-break-inside: avoid; }
+  pre { white-space: pre-wrap; word-break: break-word; }
+  a { color: var(--ink); }
+  a::after { content: ""; }
+}
+
+/* ---------- End matter ---------- */
+.endmatter { page-break-before: always; }
+.endmatter h2 { border-bottom-color: var(--ink); }
+
+.keybox {
+  display: inline-block; border: 1px solid var(--ink); padding: 2px 6px;
+  font-family: var(--mono); font-size: 0.85em; background: var(--paper-2);
+}
+
+hr.red { border: 0; border-top: 3px solid var(--accent); margin: 2rem 0; }
